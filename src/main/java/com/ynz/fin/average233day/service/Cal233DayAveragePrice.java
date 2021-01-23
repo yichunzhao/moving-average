@@ -27,7 +27,7 @@ public class Cal233DayAveragePrice {
     private static final int preCount = 20 + 1;
     private static final int dayOfAverage = 233;
 
-    public List<HistoricalQuote> getStockOneYearBefore(String stock, LocalDate refDate) {
+    public List<HistoricalQuote> getStockOneYearBefore(String stock, LocalDate refDate) throws IOException {
         DayOfWeek dayOfWeek = refDate.getDayOfWeek();
         if (dayOfWeek.equals(DayOfWeek.SATURDAY) || dayOfWeek.equals(DayOfWeek.SUNDAY)) {
             throw new IllegalArgumentException("weekend is not a valid reference day.");
@@ -45,7 +45,7 @@ public class Cal233DayAveragePrice {
 
             historicalQuotes = found.getHistory(from, to, Interval.DAILY);
         } catch (IOException e) {
-            log.error("method: getStockOneYearBefore", e);
+            throw e;
         }
 
         return historicalQuotes;
@@ -97,7 +97,18 @@ public class Cal233DayAveragePrice {
     }
 
     public boolean isIncremental(String stock, LocalDate startDate) {
-        List<HistoricalQuote> historicalQuotes = getStockOneYearBefore(stock, startDate);
+        List<HistoricalQuote> historicalQuotes = new ArrayList<>();
+        try {
+            historicalQuotes = getStockOneYearBefore(stock, startDate);
+        } catch (IOException e) {
+            return false;
+        }
+
+        if (historicalQuotes.size() < 255) {
+
+            return false;
+        }
+
         Map<HistoricalQuote, Double> average20Days = cal20Days233Average(historicalQuotes);
 
         List<Double> averages = new ArrayList<>(average20Days.values());

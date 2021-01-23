@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import yahoofinance.histquotes.HistoricalQuote;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -18,20 +19,21 @@ class Cal233DayAveragePriceTest {
     private Cal233DayAveragePrice averagePrice = new Cal233DayAveragePrice();
 
     @Test
-    void getStockOneYearBefore() {
+    void getStockOneYearBefore() throws IOException {
         List<HistoricalQuote> historicalQuotes = averagePrice.getStockOneYearBefore("tdy", LocalDate.of(2020, 12, 31));
         assertThat(historicalQuotes.size(), is(greaterThan(254)));
     }
 
     @Test
-    void calc20DaysPre233DaysPriceAverage() {
-        List<HistoricalQuote> historicalQuotes = averagePrice.getStockOneYearBefore("tdy", LocalDate.of(2020, 12, 31));
+    void calc20DaysPre233DaysPriceAverage() throws IOException {
+        List<HistoricalQuote> historicalQuotes =
+                averagePrice.getStockOneYearBefore("tdy", LocalDate.of(2020, 12, 31));
         Map<HistoricalQuote, Double> averagePrices = averagePrice.cal20Days233Average(historicalQuotes);
         assertThat(averagePrices.size(), is(20));
     }
 
     @Test
-    void determine20Days233AverageIncrementalOrNot() {
+    void determine20Days233AverageIncrementalOrNot() throws IOException {
         assertTrue(averagePrice.isIncremental("tdy", LocalDate.of(2020, 12, 31)));
     }
 

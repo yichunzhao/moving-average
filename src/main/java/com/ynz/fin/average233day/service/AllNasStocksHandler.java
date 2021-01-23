@@ -35,7 +35,7 @@ public class AllNasStocksHandler {
             fileWriterNot.append("ref. date:" + refDate.toString()).append("\n");
 
             //all stocks
-            List<NasdaqStock> stocks = loadNasdaqStocks.doAction().stream().limit(20).collect(toList());
+            List<NasdaqStock> stocks = loadNasdaqStocks.doAction().stream().collect(toList());
 
             //cal
             for (NasdaqStock stock : stocks) {
@@ -43,9 +43,9 @@ public class AllNasStocksHandler {
 
                 boolean isIncremental = cal233DayAveragePrice.isIncremental(symbol, refDate);
                 if (isIncremental) {
-                    fileWriter.append(Integer.toString(stocks.indexOf(stock))).append(symbol).append("\n");
+                    fileWriter.append(Integer.toString(stocks.indexOf(stock))).append(" " + symbol).append("\n");
                 } else {
-                    fileWriterNot.append(symbol).append("\n");
+                    fileWriterNot.append(Integer.toString(stocks.indexOf(stock))).append(symbol).append("\n");
                 }
             }
 

@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 @Service
 @Slf4j
 public class Cal233DayAveragePrice {
@@ -105,11 +107,12 @@ public class Cal233DayAveragePrice {
         }
 
         if (historicalQuotes.size() < 255) {
-
             return false;
         }
 
-        Map<HistoricalQuote, Double> average20Days = cal20Days233Average(historicalQuotes);
+        List<HistoricalQuote> historicalQuotesChecked = historicalQuotes.stream().filter(h -> h.getClose() != null).collect(toList());
+
+        Map<HistoricalQuote, Double> average20Days = cal20Days233Average(historicalQuotesChecked);
 
         List<Double> averages = new ArrayList<>(average20Days.values());
 

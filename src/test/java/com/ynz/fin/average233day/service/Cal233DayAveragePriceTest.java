@@ -12,7 +12,7 @@ import java.util.Map;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class Cal233DayAveragePriceTest {
 
@@ -35,6 +35,11 @@ class Cal233DayAveragePriceTest {
     @Test
     void determine20Days233AverageIncrementalOrNot() throws IOException {
         assertTrue(averagePrice.isIncremental("tdy", LocalDate.of(2020, 12, 31)));
+    }
+
+    @Test
+    void checkNullValues() {
+        assertTrue(averagePrice.isIncremental("acamu", LocalDate.of(2021, 1, 22)));
     }
 
     @Test

@@ -99,18 +99,21 @@ public class Cal233DayAveragePrice {
     }
 
     public boolean isIncremental(String stock, LocalDate startDate) {
-        List<HistoricalQuote> historicalQuotes = new ArrayList<>();
+        List<HistoricalQuote> historicalQuotes;
+
         try {
             historicalQuotes = getStockOneYearBefore(stock, startDate);
         } catch (IOException e) {
             return false;
         }
 
-        if (historicalQuotes.size() < 255) {
-            return false;
-        }
+        if (historicalQuotes == null) return false;
 
         List<HistoricalQuote> historicalQuotesChecked = historicalQuotes.stream().filter(h -> h.getClose() != null).collect(toList());
+
+        if (historicalQuotesChecked.size() < 255) {
+            return false;
+        }
 
         Map<HistoricalQuote, Double> average20Days = cal20Days233Average(historicalQuotesChecked);
 

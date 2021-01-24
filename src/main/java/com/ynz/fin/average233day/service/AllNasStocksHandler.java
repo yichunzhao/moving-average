@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -20,6 +21,8 @@ import static java.util.stream.Collectors.toList;
 public class AllNasStocksHandler {
     private final Cal233DayAveragePrice cal233DayAveragePrice;
     private final LoadNasdaqStocks loadNasdaqStocks;
+    private StringBuilder sbIncremental = new StringBuilder();
+    private StringBuilder sbNotIncremental = new StringBuilder();
 
     public void calAllNasStock20Days233DaysIncremental() {
         try {
@@ -35,25 +38,36 @@ public class AllNasStocksHandler {
             fileWriterNot.append("ref. date:" + refDate.toString()).append("\n");
 
             //all stocks
-            List<NasdaqStock> stocks = loadNasdaqStocks.doAction().stream().collect(toList());
+            //List<NasdaqStock> stocks = loadNasdaqStocks.doAction().stream().skip(1418).collect(toList());
+            List<NasdaqStock> sts = loadNasdaqStocks.doAction();
 
+            Optional<NasdaqStock> target = sts.stream().filter(st -> st.getSymbol().equals("HTHT")).findAny();
+            NasdaqStock lastEnding = target.orElseThrow(() -> new IllegalStateException("the specific stock is not found in the stocks"));
+            int index = sts.indexOf(lastEnding);
+
+            List<NasdaqStock> stocks = loadNasdaqStocks.doAction().stream().skip(index + 1).collect(toList());
+
+            //List<NasdaqStock> stocks = loadNasdaqStocks.doAction().stream().filter(st -> st.getSymbol().equals("TSLA")).collect(toList());
             //cal
             for (NasdaqStock stock : stocks) {
                 String symbol = stock.getSymbol();
 
                 boolean isIncremental = cal233DayAveragePrice.isIncremental(symbol, refDate);
                 if (isIncremental) {
-                    fileWriter.append(Integer.toString(stocks.indexOf(stock))).append(" " + symbol).append("\n");
+                    sbIncremental.append(Integer.toString(stocks.indexOf(stock))).append(" " + symbol).append("\n");
                 } else {
-                    fileWriterNot.append(Integer.toString(stocks.indexOf(stock))).append(symbol).append("\n");
+                    sbNotIncremental.append(Integer.toString(stocks.indexOf(stock))).append(symbol).append("\n");
                 }
             }
 
+            fileWriter.write(sbIncremental.toString());
+            fileWriterNot.write(sbNotIncremental.toString());
+
             fileWriter.flush();
             fileWriterNot.flush();
+
             fileWriter.close();
             fileWriterNot.close();
-
         } catch (IOException e) {
             log.error("AllNasStocksHandler...", e);
         }

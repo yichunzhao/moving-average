@@ -13,8 +13,8 @@ import java.util.Map;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-@Component
-public class LoadNasdaqStocks {
+@Component("allNasdaqStocks")
+public class LoadNasdaqStocks implements FileLoader<NasdaqStock> {
 
     private static final String target = "nasdaqlisted.txt";
 

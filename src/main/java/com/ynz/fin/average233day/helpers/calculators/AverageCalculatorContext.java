@@ -1,23 +1,29 @@
 package com.ynz.fin.average233day.helpers.calculators;
 
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import yahoofinance.histquotes.HistoricalQuote;
 
 import java.util.List;
 import java.util.Map;
 
 
+@Component("averageContext")
+@RequiredArgsConstructor
 @Slf4j
 public class AverageCalculatorContext {
 
     private AverageCalculator averageCalculator;
 
-    public AverageCalculatorContext(AverageCalculator averageCalculator) {
-        this.averageCalculator = averageCalculator;
-    }
+    private final AveragedEightDays eightDays;
+    private final AverageTwentyOneDays twentyOneDays;
 
-    public Map<HistoricalQuote, Double> execute(List<HistoricalQuote> quotes) {
+    public <T> Map<HistoricalQuote, Double> execute(List<HistoricalQuote> quotes, Class<T> strategy) {
+        if (strategy.equals(AveragedEightDays.class)) averageCalculator = eightDays;
+        else if (strategy.equals(AverageTwentyOneDays.class)) averageCalculator = twentyOneDays;
+        else throw new IllegalArgumentException("strategy is not existed");
 
         Map<HistoricalQuote, Double> historicalQuoteDoubleMap;
 
@@ -30,6 +36,5 @@ public class AverageCalculatorContext {
 
         return historicalQuoteDoubleMap;
     }
-
 
 }

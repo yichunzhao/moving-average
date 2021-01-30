@@ -1,5 +1,6 @@
 package com.ynz.fin.average233day.helpers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
@@ -11,6 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 
 @Component("yahooHistoryQuoteLoader")
+@Slf4j
 public class StockHistoricalQuoteLoader implements StockLoader<HistoricalQuote> {
 
     @Override
@@ -23,4 +25,32 @@ public class StockHistoricalQuoteLoader implements StockLoader<HistoricalQuote> 
 
         return historicalQuotes;
     }
+
+    /**
+     * ref. to current date to, load previous n-month quotes. if api throw exception, or quotes is found empty;
+     * both cases it return null.
+     *
+     * @param ticker          String
+     * @param to              Calendar
+     * @param pastMonthNumber int
+     * @return List<HistoricalQuote>
+     */
+    @Override
+    public List<HistoricalQuote> loadPastMonthQuotes(String ticker, Calendar to, int pastMonthNumber) {
+        List<HistoricalQuote> quotes;
+
+        Calendar from = (Calendar) to.clone();
+        from.add(Calendar.MONTH, (-1) * pastMonthNumber);
+
+        try {
+            quotes = loadHistoricalQuotesDaily(ticker, from, to);
+            if (quotes.isEmpty()) return null;
+
+        } catch (IOException e) {
+            log.error("loading ticker: " + ticker + "averagedDays loading historical quotes", e);
+            return null;
+        }
+        return quotes;
+    }
+
 }

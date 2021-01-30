@@ -14,7 +14,9 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.nullValue;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @SpringBootTest
 @Slf4j
@@ -43,6 +45,26 @@ class StockHistoricalQuoteLoaderTest {
         log.info("Query history quotes from time: " + from.getTime() + " to time: " + to.getTime());
 
         List<HistoricalQuote> quotes = stockLoader.loadHistoricalQuotesDaily("BMCH", from, to);
+        assertThat(quotes, is(nullValue()));
+    }
+
+    @Test
+    @DisplayName("Load past N month quotes")
+    void getPreviousTwoMonthQuotes() {
+        Calendar to = new GregorianCalendar(2021, 0, 29);
+        List<HistoricalQuote> quotes = stockLoader.loadPastMonthQuotes("tdy", to, 2);
+
+        assertAll(
+                () -> assertThat(quotes.size(), is(greaterThan(30))),
+                () -> assertThat(quotes.size(), is(lessThan(60)))
+        );
+    }
+
+    @Test
+    @DisplayName("Some Ticker may return null")
+    void loadPastMonthQuotes_ReturnNull() {
+        Calendar to = new GregorianCalendar(2021, 0, 29);
+        List<HistoricalQuote> quotes = stockLoader.loadPastMonthQuotes("BMCH", to, 2);
         assertThat(quotes, is(nullValue()));
     }
 

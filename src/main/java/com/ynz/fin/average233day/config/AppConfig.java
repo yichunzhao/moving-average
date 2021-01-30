@@ -16,4 +16,9 @@ public class AppConfig {
         return new RestTemplate();
     }
 
+    @Bean(name = "10Days")
+    public Integer tenDaySpan() {
+        return 10;
+    }
+
 }

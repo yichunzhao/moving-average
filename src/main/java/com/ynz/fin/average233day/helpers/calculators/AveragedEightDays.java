@@ -1,4 +1,4 @@
-package com.ynz.fin.average233day.helpers;
+package com.ynz.fin.average233day.helpers.calculators;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;

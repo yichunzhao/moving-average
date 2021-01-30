@@ -1,4 +1,4 @@
-package com.ynz.fin.average233day.helpers;
+package com.ynz.fin.average233day.helpers.fileloader;
 
 import com.ynz.fin.average233day.domain.nasdaq.NasdaqStock;
 import org.springframework.stereotype.Component;

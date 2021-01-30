@@ -1,5 +1,7 @@
 package com.ynz.fin.average233day.helpers;
 
+import com.ynz.fin.average233day.helpers.accessquotes.StockLoader;
+import com.ynz.fin.average233day.helpers.calculators.AverageCalculator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

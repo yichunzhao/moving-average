@@ -1,7 +1,7 @@
 package com.ynz.fin.average233day.service;
 
 import com.ynz.fin.average233day.domain.nasdaq.NasdaqStock;
-import com.ynz.fin.average233day.helpers.LoadNasdaqStocks;
+import com.ynz.fin.average233day.helpers.fileloader.LoadNasdaqStocks;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

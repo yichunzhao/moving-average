@@ -1,4 +1,4 @@
-package com.ynz.fin.average233day.helpers;
+package com.ynz.fin.average233day.helpers.fileloader;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ResourceUtils;

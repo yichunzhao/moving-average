@@ -1,4 +1,4 @@
-package com.ynz.fin.average233day.helpers;
+package com.ynz.fin.average233day.helpers.accessquotes;
 
 import yahoofinance.histquotes.HistoricalQuote;
 

@@ -1,6 +1,7 @@
 package com.ynz.fin.average233day.helpers;
 
 import com.ynz.fin.average233day.domain.nasdaq.NasdaqStock;
+import com.ynz.fin.average233day.helpers.fileloader.LoadNasdaqStocks;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

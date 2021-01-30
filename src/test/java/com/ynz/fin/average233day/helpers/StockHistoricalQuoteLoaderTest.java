@@ -1,5 +1,6 @@
 package com.ynz.fin.average233day.helpers;
 
+import com.ynz.fin.average233day.helpers.accessquotes.StockHistoricalQuoteLoader;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

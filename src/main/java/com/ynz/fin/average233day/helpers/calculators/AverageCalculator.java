@@ -1,4 +1,4 @@
-package com.ynz.fin.average233day.helpers;
+package com.ynz.fin.average233day.helpers.calculators;
 
 import java.util.List;
 import java.util.Map;

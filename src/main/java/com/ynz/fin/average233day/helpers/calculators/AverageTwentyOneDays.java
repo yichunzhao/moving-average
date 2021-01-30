@@ -19,7 +19,7 @@ public class AverageTwentyOneDays implements AverageCalculator<HistoricalQuote, 
 
     public AverageTwentyOneDays(@Qualifier("10Days") int daySpan) {
         this.daySpan = daySpan;
-        minDataSetSize = daySpan + 21;
+        minDataSetSize = daySpan + 20;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class AverageTwentyOneDays implements AverageCalculator<HistoricalQuote, 
         Collections.reverse(quotes);
 
         for (int i = 0; i < daySpan; i++) {
-            Double average = quotes.subList(i + 1, i + 22).stream()
+            Double average = quotes.subList(i , i + 21).stream()
                     .mapToDouble(q -> q.getClose().doubleValue()).average()
                     .orElseThrow(() -> new Exception("double average is not present"));
             historicalQuoteDoubleMap.put(quotes.get(i), average);

@@ -23,7 +23,7 @@ public class AveragedEightDays implements AverageCalculator<HistoricalQuote, Dou
 
     public AveragedEightDays(@Qualifier("10Days") int daySpan) {
         this.daySpan = daySpan;
-        minDataSetSize = daySpan + 8;
+        minDataSetSize = daySpan + 7;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class AveragedEightDays implements AverageCalculator<HistoricalQuote, Dou
         Collections.reverse(quotes);
 
         for (int i = 0; i < daySpan; i++) {
-            Double average = quotes.subList(i + 1, i + 9).stream()
+            Double average = quotes.subList(i , i + 8).stream()
                     .mapToDouble(q -> q.getClose().doubleValue()).average()
                     .orElseThrow(() -> new Exception("double average is not present"));
             historicalQuoteDoubleMap.put(quotes.get(i), average);

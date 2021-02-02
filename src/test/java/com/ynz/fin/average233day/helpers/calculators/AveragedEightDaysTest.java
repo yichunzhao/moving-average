@@ -1,7 +1,6 @@
 package com.ynz.fin.average233day.helpers.calculators;
 
 import com.ynz.fin.average233day.helpers.accessquotes.StockLoader;
-import com.ynz.fin.average233day.helpers.calculators.AverageCalculator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ class AveragedEightDaysTest {
     @BeforeEach
     void setUp() {
         Calendar to = new GregorianCalendar(2021, 0, 29);
-        quoteList = stockLoader.loadPastMonthQuotes("tdy", to, 2);
+        quoteList = stockLoader.loadPastMonthQuotes("tsla", to, 2);
         quoteList.parallelStream().filter(quote -> quote.getClose() != null).collect(toList());
     }
 

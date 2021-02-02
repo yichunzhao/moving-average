@@ -10,19 +10,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class SimpleDataSetFactorTest {
-    private SimpleDataSetFactor simpleDataSetFactor = new SimpleDataSetFactor();
 
     @Test
     void givenIncrementalDataList_ItReturnTrue() {
         List<Integer> integerList = Arrays.asList(1, 3, 5, 7, 9);
-        boolean result = simpleDataSetFactor.isIncremental(integerList);
+        SimpleDataSetFactor simpleDataSetFactor = new SimpleDataSetFactor(integerList);
+        boolean result = simpleDataSetFactor.isIncremental();
         assertTrue(result);
     }
 
     @Test
     void givenDecrementalDataList_ItReturnFalse() {
         List<Integer> integerList = Arrays.asList(9, 6, 3);
-        boolean result = simpleDataSetFactor.isIncremental(integerList);
+        SimpleDataSetFactor simpleDataSetFactor = new SimpleDataSetFactor(integerList);
+        boolean result = simpleDataSetFactor.isIncremental();
         assertFalse(result);
 
     }
@@ -30,16 +31,17 @@ class SimpleDataSetFactorTest {
     @Test
     void givenListContainingEqualityItems_ItReturnFalse() {
         List<Integer> integerList = Arrays.asList(2, 2, 2);
-        boolean result = simpleDataSetFactor.isIncremental(integerList);
+        SimpleDataSetFactor simpleDataSetFactor = new SimpleDataSetFactor(integerList);
+        boolean result = simpleDataSetFactor.isIncremental();
         assertFalse(result);
     }
 
     @Test
     void givenListIncrementalButContainEqualItems_ItReturnTrue() {
         List<Integer> integerList = Arrays.asList(4, 5, 5, 7);
-        boolean result = simpleDataSetFactor.isIncremental(integerList);
+        SimpleDataSetFactor simpleDataSetFactor = new SimpleDataSetFactor(integerList);
+        boolean result = simpleDataSetFactor.isIncremental();
         assertTrue(result);
-
     }
 
 }

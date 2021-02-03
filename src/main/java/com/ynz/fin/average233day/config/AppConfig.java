@@ -23,7 +23,7 @@ public class AppConfig {
     }
 
     @Bean("simpleRegression")
-    public SimpleRegression getSimpleRegression(){
+    public SimpleRegression getSimpleRegression() {
         return new SimpleRegression();
     }
 

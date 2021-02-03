@@ -1,5 +1,6 @@
 package com.ynz.fin.average233day.helpers.factors;
 
+import com.ynz.fin.average233day.utils.NumberFormatter;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.springframework.stereotype.Component;
@@ -49,10 +50,10 @@ public class LinerRegressionDataFactors implements DataSetFactors {
         regression.clear();
         regression.addData(data);
 
-        factors.put(Factor.SLOP, regression.getSlope());
-        factors.put(Factor.INTERCEPT, regression.getIntercept());
-        factors.put(Factor.R, regression.getR());
-        factors.put(Factor.R_SQUARE, regression.getRSquare());
+        factors.put(Factor.SLOP, NumberFormatter.of(regression.getSlope()).round());
+        factors.put(Factor.INTERCEPT, NumberFormatter.of(regression.getIntercept()).round());
+        factors.put(Factor.R, NumberFormatter.of(regression.getR()).round());
+        factors.put(Factor.R_SQUARE, NumberFormatter.of(regression.getRSquare()).round());
 
         return factors;
     }

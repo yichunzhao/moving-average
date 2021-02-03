@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @Slf4j
-class LinerRegressionTest {
+class LinerRegressionDataFactorsTest {
 
     @Autowired
     private LinerRegressionDataFactors factors;

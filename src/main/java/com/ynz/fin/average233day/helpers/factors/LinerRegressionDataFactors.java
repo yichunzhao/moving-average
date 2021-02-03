@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.springframework.stereotype.Component;
 
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +35,7 @@ public class LinerRegressionDataFactors implements DataSetFactors {
         if (!dataList.stream().noneMatch(aDouble -> aDouble == null))
             throw new IllegalArgumentException(" dataList contains null value... ");
 
-        Map<Factor, Double> factors = new Hashtable<>();
+        Map<Factor, Double> factors = new LinkedHashMap<>();
 
         double[] independent = dataList.stream().mapToDouble(Double::doubleValue).toArray();
 
@@ -49,10 +49,10 @@ public class LinerRegressionDataFactors implements DataSetFactors {
         regression.clear();
         regression.addData(data);
 
-        factors.put(Factor.R_SQUARE, regression.getRSquare());
         factors.put(Factor.SLOP, regression.getSlope());
         factors.put(Factor.INTERCEPT, regression.getIntercept());
         factors.put(Factor.R, regression.getR());
+        factors.put(Factor.R_SQUARE, regression.getRSquare());
 
         return factors;
     }

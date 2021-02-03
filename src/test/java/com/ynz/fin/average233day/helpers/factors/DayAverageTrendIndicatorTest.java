@@ -30,14 +30,13 @@ class DayAverageTrendIndicatorTest {
     private List<Double> dataListDec;
     private Map<LinerRegressionDataFactors.Factor, Double> factorDoubleMapDec;
 
-
     @BeforeEach
     void setUp() {
         dataList = Arrays.asList(1.23, 2.89, 3.45, 4.56);
         regressionDataFactors.setDataList(dataList);
         factorDoubleMap = regressionDataFactors.calDataSetFactors();
 
-        dataListDec = Arrays.asList(599.56, 478.34, 345.67, 123.44);
+        dataListDec = Arrays.asList(599.56, 478.34, 345.67, 223.44);
         regressionDataFactors.setDataList(dataListDec);
         factorDoubleMapDec = regressionDataFactors.calDataSetFactors();
     }

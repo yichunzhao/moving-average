@@ -26,6 +26,6 @@ public class DayAverageTrendIndicator implements DataSetTrend<Double> {
         if (rSquare < 0.2) return false;
 
         double slop = factors.get(LinerRegressionDataFactors.Factor.SLOP);
-        return slop > 1;
+        return slop > 0;
     }
 }

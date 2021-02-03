@@ -46,6 +46,7 @@ public class LinerRegressionDataFactors implements DataSetFactors {
             data[i][1] = independent[i];
         }
 
+        regression.clear();
         regression.addData(data);
 
         factors.put(Factor.R_SQUARE, regression.getRSquare());

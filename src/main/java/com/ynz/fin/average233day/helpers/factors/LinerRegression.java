@@ -2,7 +2,6 @@ package com.ynz.fin.average233day.helpers.factors;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Hashtable;
@@ -11,18 +10,23 @@ import java.util.Map;
 
 @Component("linerRegressionFactor")
 @RequiredArgsConstructor(staticName = "of")
-public class LinerRegressionDataSetFactor implements DataSetFactors {
+public class LinerRegression implements DataSetFactors {
     public enum Factor {
         SLOP, INTERCEPT, R_SQUARE, R
     }
 
-    private SimpleRegression regression;
+    private final SimpleRegression regression;
 
-    private final List<Double> dataList;
+    private List<Double> dataList;
 
-    @Autowired
-    public void setRegression(SimpleRegression regression) {
-        this.regression = regression;
+    @Override
+    public void setDataList(List dataList) {
+        this.dataList = dataList;
+    }
+
+    @Override
+    public List getDataList() {
+        return this.dataList;
     }
 
     @Override
@@ -35,13 +39,11 @@ public class LinerRegressionDataSetFactor implements DataSetFactors {
 
         double[] independent = dataList.stream().mapToDouble(Double::doubleValue).toArray();
 
-        double[][] data = new double[dataList.size()][];
+        double[][] data = new double[dataList.size()][2];
 
         for (int i = 0; i < dataList.size(); i++) {
-            for (int j = 0; j < 2; j++) {
-                data[i][j] = i;
-                data[i][j] = independent[i];
-            }
+            data[i][0] = i;
+            data[i][1] = independent[i];
         }
 
         regression.addData(data);
@@ -53,6 +55,5 @@ public class LinerRegressionDataSetFactor implements DataSetFactors {
 
         return factors;
     }
-
 
 }

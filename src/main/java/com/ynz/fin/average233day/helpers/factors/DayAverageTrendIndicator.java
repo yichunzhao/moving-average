@@ -4,20 +4,20 @@ package com.ynz.fin.average233day.helpers.factors;
 import java.util.Map;
 
 public class DayAverageTrendIndicator implements DataSetTrend<Double> {
-    private DataSetFactors<LinerRegressionDataSetFactor.Factor, Double> setFactors;
+    private DataSetFactors<LinerRegression.Factor, Double> setFactors;
 
-    public DayAverageTrendIndicator(DataSetFactors<LinerRegressionDataSetFactor.Factor, Double> setFactors) {
+    public DayAverageTrendIndicator(DataSetFactors<LinerRegression.Factor, Double> setFactors) {
         this.setFactors = setFactors;
     }
 
     @Override
     public boolean isIncremental() {
-        Map<LinerRegressionDataSetFactor.Factor, Double> factors = setFactors.calDataSetFactors();
+        Map<LinerRegression.Factor, Double> factors = setFactors.calDataSetFactors();
 
-        double rSquare = factors.get(LinerRegressionDataSetFactor.Factor.R_SQUARE);
+        double rSquare = factors.get(LinerRegression.Factor.R_SQUARE);
         if (rSquare < 0.2) return false;
 
-        double slop = factors.get(LinerRegressionDataSetFactor.Factor.SLOP);
-        return slop > 1 ? true : false;
+        double slop = factors.get(LinerRegression.Factor.SLOP);
+        return slop > 1;
     }
 }

@@ -3,7 +3,7 @@ package com.ynz.fin.average233day.helpers.factors;
 import java.util.List;
 import java.util.Map;
 
-public interface DataSetFactors<K extends LinerRegression.Factor, T extends Number >  {
+public interface DataSetFactors<K extends LinerRegressionDataFactors.Factor, T extends Number >  {
 
     Map<K, T> calDataSetFactors();
 

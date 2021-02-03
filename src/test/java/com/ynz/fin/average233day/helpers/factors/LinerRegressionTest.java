@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class LinerRegressionTest {
 
     @Autowired
-    private LinerRegression factors;
+    private LinerRegressionDataFactors factors;
 
     @Test
     void solverIsInjected() {
@@ -30,16 +30,16 @@ class LinerRegressionTest {
         factors.setDataList(Arrays.asList(1.34, 4.56, 7.88, 9.60));
         assertNotNull(factors.getDataList());
 
-        Map<LinerRegression.Factor, Double> factorDoubleMap = factors.calDataSetFactors();
+        Map<LinerRegressionDataFactors.Factor, Double> factorDoubleMap = factors.calDataSetFactors();
         assertNotNull(factorDoubleMap);
 
         log.info(factorDoubleMap.toString());
 
         assertAll(
-                () -> assertNotNull(factorDoubleMap.get(LinerRegression.Factor.INTERCEPT)),
-                () -> assertNotNull(factorDoubleMap.get(LinerRegression.Factor.SLOP)),
-                () -> assertNotNull(factorDoubleMap.get(LinerRegression.Factor.R_SQUARE)),
-                () -> assertNotNull(factorDoubleMap.get(LinerRegression.Factor.R))
+                () -> assertNotNull(factorDoubleMap.get(LinerRegressionDataFactors.Factor.INTERCEPT)),
+                () -> assertNotNull(factorDoubleMap.get(LinerRegressionDataFactors.Factor.SLOP)),
+                () -> assertNotNull(factorDoubleMap.get(LinerRegressionDataFactors.Factor.R_SQUARE)),
+                () -> assertNotNull(factorDoubleMap.get(LinerRegressionDataFactors.Factor.R))
         );
     }
 

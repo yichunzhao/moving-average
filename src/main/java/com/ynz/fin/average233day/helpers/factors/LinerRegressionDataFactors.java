@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Component("linerRegressionFactor")
 @RequiredArgsConstructor(staticName = "of")
-public class LinerRegression implements DataSetFactors {
+public class LinerRegressionDataFactors implements DataSetFactors {
     public enum Factor {
         SLOP, INTERCEPT, R_SQUARE, R
     }

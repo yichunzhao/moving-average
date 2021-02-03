@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -26,11 +27,19 @@ class DayAverageTrendIndicatorTest {
     private List<Double> dataList;
     private Map<LinerRegressionDataFactors.Factor, Double> factorDoubleMap;
 
+    private List<Double> dataListDec;
+    private Map<LinerRegressionDataFactors.Factor, Double> factorDoubleMapDec;
+
+
     @BeforeEach
     void setUp() {
         dataList = Arrays.asList(1.23, 2.89, 3.45, 4.56);
         regressionDataFactors.setDataList(dataList);
         factorDoubleMap = regressionDataFactors.calDataSetFactors();
+
+        dataListDec = Arrays.asList(599.56, 478.34, 345.67, 123.44);
+        regressionDataFactors.setDataList(dataListDec);
+        factorDoubleMapDec = regressionDataFactors.calDataSetFactors();
     }
 
     @Test
@@ -39,6 +48,14 @@ class DayAverageTrendIndicatorTest {
         trendIndicator.setFactorMap(factorDoubleMap);
 
         assertTrue(trendIndicator.isIncremental());
+    }
+
+    @Test
+    void whenGivenDataListDec_ItReturnsFalse() {
+        log.info("indicating a data list trend Dec ");
+        trendIndicator.setFactorMap(factorDoubleMapDec);
+
+        assertFalse(trendIndicator.isIncremental());
     }
 
     @Test

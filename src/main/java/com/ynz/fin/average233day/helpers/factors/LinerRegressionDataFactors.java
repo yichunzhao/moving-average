@@ -50,10 +50,17 @@ public class LinerRegressionDataFactors implements DataSetFactors {
         regression.clear();
         regression.addData(data);
 
-        factors.put(Factor.SLOP, NumberFormatter.of(regression.getSlope()).round());
-        factors.put(Factor.INTERCEPT, NumberFormatter.of(regression.getIntercept()).round());
-        factors.put(Factor.R, NumberFormatter.of(regression.getR()).round());
-        factors.put(Factor.R_SQUARE, NumberFormatter.of(regression.getRSquare()).round());
+        double slop = regression.getSlope();
+        factors.put(Factor.SLOP, NumberFormatter.of(slop).round());
+
+        double intercept = regression.getIntercept();
+        factors.put(Factor.INTERCEPT, NumberFormatter.of(intercept).round());
+
+        double r = regression.getR();
+        factors.put(Factor.R, NumberFormatter.of(r).round());
+
+        double rSquare = regression.getRSquare();
+        factors.put(Factor.R_SQUARE, NumberFormatter.of(rSquare).round());
 
         return factors;
     }

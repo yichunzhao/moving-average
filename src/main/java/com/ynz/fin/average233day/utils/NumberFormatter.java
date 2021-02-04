@@ -10,6 +10,7 @@ public class NumberFormatter {
     private final double number;
 
     public double round() {
+        if (Double.isNaN(number)) return Double.NaN;
         return BigDecimal.valueOf(this.number).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 

@@ -26,7 +26,7 @@ class LoadNasdaqStocksTest {
 
     @Test
     void testLoadStocksIntoList() {
-        List<NasdaqStock> stocks = loadNasdaqStocks.doAction();
+        List<NasdaqStock> stocks = loadNasdaqStocks.load();
 
         assertAll(
                 () -> assertThat(stocks.size(), is(greaterThan(3000))),
@@ -39,7 +39,7 @@ class LoadNasdaqStocksTest {
 
     @Test
     void printIntoExcelFile() {
-        List<NasdaqStock> stocks = loadNasdaqStocks.doAction();
+        List<NasdaqStock> stocks = loadNasdaqStocks.load();
         File nasdaqStocksPlainTextFile = null;
         try {
             Files.deleteIfExists(Paths.get("nasdaqStocks.txt"));

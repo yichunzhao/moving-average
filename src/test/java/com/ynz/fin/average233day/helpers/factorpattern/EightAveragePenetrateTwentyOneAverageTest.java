@@ -41,7 +41,7 @@ class EightAveragePenetrateTwentyOneAverageTest {
 
     @Test
     void givenTwoSameLine_ReturnFalse() {
-        boolean r = EightAveragePenetrateTwentyOneAverage.of(line1, line1).penetrate();
+        boolean r = EightAveragePenetrateTwentyOneAverage.of(line2, line3).penetrate();
         assertFalse(r);
     }
 
@@ -56,4 +56,5 @@ class EightAveragePenetrateTwentyOneAverageTest {
         boolean r = EightAveragePenetrateTwentyOneAverage.of(line2, line1).penetrate();
         assertFalse(r);
     }
+
 }

@@ -39,13 +39,13 @@ public class AllNasStocksHandler {
 
             //all stocks
             //List<NasdaqStock> stocks = loadNasdaqStocks.doAction().stream().skip(1418).collect(toList());
-            List<NasdaqStock> sts = loadNasdaqStocks.doAction();
+            List<NasdaqStock> sts = loadNasdaqStocks.load();
 
             Optional<NasdaqStock> target = sts.stream().filter(st -> st.getSymbol().equals("HTHT")).findAny();
             NasdaqStock lastEnding = target.orElseThrow(() -> new IllegalStateException("the specific stock is not found in the stocks"));
             int index = sts.indexOf(lastEnding);
 
-            List<NasdaqStock> stocks = loadNasdaqStocks.doAction().stream().skip(index + 1).collect(toList());
+            List<NasdaqStock> stocks = loadNasdaqStocks.load().stream().skip(index + 1).collect(toList());
 
             //List<NasdaqStock> stocks = loadNasdaqStocks.doAction().stream().filter(st -> st.getSymbol().equals("TSLA")).collect(toList());
             //cal

@@ -1,6 +1,7 @@
 package com.ynz.fin.average233day.helpers.fileloader;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
@@ -9,6 +10,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("nasIncremental")
 @Slf4j
 public class IncrementalNasdaqStocks implements FileLoader<String> {
     private final String pattern = "[0-9]+\\s[A-Z]+";
@@ -21,7 +23,7 @@ public class IncrementalNasdaqStocks implements FileLoader<String> {
     }
 
     @Override
-    public List<String> doAction() {
+    public List<String> load() {
         List<String> allTickers = new ArrayList<>();
 
         try {

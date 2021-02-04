@@ -19,7 +19,7 @@ class IncrementalNasdaqStocksTest {
 
     @Test
     void loadAllIncrementalTickersFromFile() {
-        List<String> tickers = fileLoader.doAction();
+        List<String> tickers = fileLoader.load();
 
         assertAll(
                 () -> assertThat(tickers.size(), is(greaterThan(1900))),

@@ -21,7 +21,7 @@ public class LoadNasdaqStocks implements FileLoader<NasdaqStock> {
     private static final String pStart = "^Symbol.+NextShares$";
     private static final String pEnd = "^File Creation Time.+|||||||";
 
-    public List<NasdaqStock> doAction() {
+    public List<NasdaqStock> load() {
         List<String> strings = null;
         Path targetPath = Paths.get(target);
         try {
@@ -76,7 +76,7 @@ public class LoadNasdaqStocks implements FileLoader<NasdaqStock> {
     }
 
     public Map<Character, TreeSet<NasdaqStock>> groupBySymbol() {
-        List<NasdaqStock> stocks = this.doAction();
+        List<NasdaqStock> stocks = this.load();
         return stocks.stream()
                 .collect(Collectors.groupingBy(nasdaqStock -> nasdaqStock.getSymbol().charAt(0), Collectors.toCollection(TreeSet::new)));
     }

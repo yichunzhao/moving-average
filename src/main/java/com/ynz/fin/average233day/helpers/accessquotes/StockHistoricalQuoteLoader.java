@@ -44,7 +44,7 @@ public class StockHistoricalQuoteLoader implements StockLoader<HistoricalQuote> 
 
         try {
             quotes = loadHistoricalQuotesDaily(ticker, from, to);
-            if (quotes.isEmpty()) return null;
+            if (quotes == null || quotes.isEmpty()) return null;
 
         } catch (IOException e) {
             log.error("loading ticker: " + ticker + "averagedDays loading historical quotes", e);

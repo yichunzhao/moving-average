@@ -5,9 +5,10 @@ import org.springframework.stereotype.Component;
 import yahoofinance.histquotes.HistoricalQuote;
 
 import java.util.Collections;
-import java.util.LinkedHashMap;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 
 @Component("average21days")
@@ -26,13 +27,13 @@ public class AverageTwentyOneDays implements AverageCalculator<HistoricalQuote, 
     public Map<HistoricalQuote, Double> compute(List<HistoricalQuote> quotes) throws Exception {
         if (quotes.size() < minDataSetSize) throw new Exception("input data size is not enough");
 
-        Map<HistoricalQuote, Double> historicalQuoteDoubleMap = new LinkedHashMap<>();
+        Map<HistoricalQuote, Double> historicalQuoteDoubleMap = new TreeMap<>(Comparator.comparing(HistoricalQuote::getDate));
 
         //reverse the list; now the latest are stored at the most left side.
         Collections.reverse(quotes);
 
         for (int i = 0; i < daySpan; i++) {
-            Double average = quotes.subList(i , i + 21).stream()
+            Double average = quotes.subList(i, i + 21).stream()
                     .mapToDouble(q -> q.getClose().doubleValue()).average()
                     .orElseThrow(() -> new Exception("double average is not present"));
             historicalQuoteDoubleMap.put(quotes.get(i), average);

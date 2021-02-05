@@ -8,10 +8,13 @@ import com.ynz.fin.average233day.helpers.calculators.AveragedEightDays;
 import com.ynz.fin.average233day.helpers.factorpattern.EightAveragePenetrateTwentyOneAverage;
 import com.ynz.fin.average233day.helpers.factors.DayAverageTrendIndicator;
 import com.ynz.fin.average233day.helpers.factors.LinerRegressionDataFactors;
+import com.ynz.fin.average233day.utils.filestore.ResultFileStorage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import yahoofinance.histquotes.HistoricalQuote;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -22,6 +25,12 @@ import static java.util.stream.Collectors.toList;
 @Service
 @RequiredArgsConstructor
 public class EightDaysPenetrate20Days {
+    @Value("${file.storage.filename}")
+    private String filename;
+
+    @Value("${file.storage.resultDir}")
+    private String folderName;
+
     private final StockHistoricalQuoteLoader quoteLoader;
     private final AverageCalculatorContext calculatorContext;
     private final LinerRegressionDataFactors linerRegressionDataFactors;
@@ -37,6 +46,9 @@ public class EightDaysPenetrate20Days {
     public List<String> findAllPenetratePatternsByTickers(List<String> tickers, Calendar to) {
         if (tickers == null || tickers.isEmpty()) throw new IllegalArgumentException("tickers is empty");
         if (to == null) throw new IllegalArgumentException("calendar is not given");
+
+        ResultFileStorage rs = ResultFileStorage.create(folderName, filename);
+        rs.saveLine("P-list " + LocalDateTime.now().toString());
 
         ArrayList<String> penetrateList = new ArrayList<>();
 
@@ -81,9 +93,10 @@ public class EightDaysPenetrate20Days {
             } else {
                 continue;
             }
+
+            rs.saveLine(" " + ticker + " ");
         }
         return penetrateList;
     }
-
 
 }

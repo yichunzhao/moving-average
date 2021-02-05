@@ -68,4 +68,14 @@ class EightDaysPenetrate20DaysTest {
         assertThat(pList, hasSize(0));
     }
 
+    @Test
+    @DisplayName("ticker GLADD throw dataList size is not enough")
+    void solvingNullPointException_DueToDataListSizeIsNotEnough() {
+        Calendar to = Calendar.getInstance();
+        to.set(2021, 1, 4);
+
+        List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(Arrays.asList("GLADD"), to);
+        assertThat(pList, hasSize(0));
+    }
+
 }

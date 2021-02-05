@@ -30,7 +30,7 @@ public class AverageCalculatorContext {
         try {
             historicalQuoteDoubleMap = averageCalculator.compute(quotes);
         } catch (Exception e) {
-            log.error("average calculation context: ", e);
+            log.warn("average calculation context: ", e);
             return null;
         }
 

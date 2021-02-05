@@ -51,9 +51,11 @@ public class EightDaysPenetrate20Days {
 
             //cal. 10-day-8DayAverage
             Map<HistoricalQuote, Double> tenDay8DayAverage = calculatorContext.execute(validatedQuotes, AveragedEightDays.class);
+            if (tenDay8DayAverage == null) continue;
 
             //cal. 10-day-21DayAverage
             Map<HistoricalQuote, Double> tenDay21DayAverage = calculatorContext.execute(validatedQuotes, AverageTwentyOneDays.class);
+            if (tenDay21DayAverage == null) continue;
 
             //cal. liner regression factors
             linerRegressionDataFactors.setDataList(new ArrayList(tenDay8DayAverage.values()));

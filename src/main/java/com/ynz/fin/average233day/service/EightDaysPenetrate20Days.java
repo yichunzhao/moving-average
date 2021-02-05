@@ -71,14 +71,15 @@ public class EightDaysPenetrate20Days {
             boolean day21TrendIncrease = dayAverageTrendIndicator.isIncremental();
 
             //penetrate?
-            if (!day8TrendIncrease || !day21TrendIncrease) continue;
-
-            boolean isPenetrating = EightAveragePenetrateTwentyOneAverage
-                    .of(tenDay8AverageRegressionFactors, tenDay21AverageRegressionFactors).penetrate();
-
-            if (isPenetrating) penetrateList.add(ticker);
+            if (day8TrendIncrease && day21TrendIncrease) {
+                boolean isP = EightAveragePenetrateTwentyOneAverage
+                        .of(tenDay8AverageRegressionFactors, tenDay21AverageRegressionFactors)
+                        .penetrate();
+                if (isP) penetrateList.add(ticker);
+            } else {
+                continue;
+            }
         }
-
         return penetrateList;
     }
 

@@ -41,6 +41,7 @@ class EightDaysPenetrate20DaysTest {
         Calendar to = Calendar.getInstance();
         to.set(2021, 1, 4);
 
+        //tickers.stream().skip(1000).collect(toList())
         List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(tickers, to);
         log.info("penetrate");
         log.info(pList.toString());

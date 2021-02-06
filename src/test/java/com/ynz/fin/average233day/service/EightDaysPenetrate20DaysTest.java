@@ -1,6 +1,7 @@
 package com.ynz.fin.average233day.service;
 
 import com.ynz.fin.average233day.helpers.fileloader.IncrementalNasdaqStocks;
+import com.ynz.fin.average233day.helpers.fileloader.ResultFolderTickerLoader;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
@@ -94,6 +96,20 @@ class EightDaysPenetrate20DaysTest {
 
         List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(Arrays.asList("FLL"), to);
         assertThat(pList, hasSize(0));
+    }
+
+    @Test
+    @Disabled
+    void givenBoth10Day8DayAnd21DayAverageBothPositive_FindOUt8Penetrate21() {
+        List<String> tickers = ResultFolderTickerLoader.of("10Day8DayAvrAnd21DayAverBothPositive.txt").load();
+        Calendar to = Calendar.getInstance();
+        to.set(2021, 1, 4);
+
+        List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(tickers, to);
+        log.info("penetrate");
+        log.info(pList.toString());
+
+        assertThat(pList.size(), is(greaterThan(1)));
     }
 
 }

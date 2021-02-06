@@ -1,7 +1,6 @@
 package com.ynz.fin.average233day.helpers.fileloader;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,7 +9,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 @Slf4j
 public class ResultFolderTickerLoader implements FileLoader<String> {
     private String folderName = "results";

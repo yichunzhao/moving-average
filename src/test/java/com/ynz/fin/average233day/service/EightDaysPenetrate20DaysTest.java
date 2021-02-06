@@ -36,20 +36,6 @@ class EightDaysPenetrate20DaysTest {
         assertThat(pList, hasSize(0));
     }
 
-    @Test
-    @Disabled
-    void determinePenetratePatternBy233DayIncrementalTickers() {
-        List<String> tickers = incrementalNasdaqStocks.load();
-        Calendar to = Calendar.getInstance();
-        to.set(2021, 1, 4);
-
-        //tickers.stream().skip(1000).collect(toList())
-        List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(tickers, to);
-        log.info("penetrate");
-        log.info(pList.toString());
-
-        assertThat(pList.size(), is(0));
-    }
 
     @Test
     void determinePatternByTickerAAWW() {
@@ -96,6 +82,30 @@ class EightDaysPenetrate20DaysTest {
 
         List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(Arrays.asList("FLL"), to);
         assertThat(pList, hasSize(0));
+    }
+
+    @Test
+    void givenAAON_PenetrateIsFalse() {
+        Calendar to = Calendar.getInstance();
+        to.set(2021, 1, 4);
+
+        List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(Arrays.asList("AAON"), to);
+        assertThat(pList, hasSize(0));
+    }
+
+    @Test
+    @Disabled
+    void determinePenetratePatternBy233DayIncrementalTickers() {
+        List<String> tickers = incrementalNasdaqStocks.load();
+        Calendar to = Calendar.getInstance();
+        to.set(2021, 1, 4);
+
+        //tickers.stream().skip(1000).collect(toList())
+        List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(tickers, to);
+        log.info("penetrate");
+        log.info(pList.toString());
+
+        assertThat(pList.size(), is(0));
     }
 
     @Test

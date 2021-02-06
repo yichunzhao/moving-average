@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
-class Both10DayAvrPositiveTest {
+class ResultFolderTickerLoaderTest {
 
     private ResultFolderTickerLoader avrPositive;
 

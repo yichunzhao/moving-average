@@ -33,7 +33,8 @@ public class ResultFolderTickerLoader implements FileLoader<String> {
         try {
             List<String> strings = Files.readAllLines(path);
             for (String str : strings) {
-                if (!str.trim().matches(pattern)) continue;
+                str = str.trim();
+                if (!str.matches(pattern)) continue;
                 results.add(str);
             }
         } catch (IOException e) {

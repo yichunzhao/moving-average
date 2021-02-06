@@ -78,4 +78,22 @@ class EightDaysPenetrate20DaysTest {
         assertThat(pList, hasSize(0));
     }
 
+    @Test
+    void givenPDD_PenetrateIsTrue() {
+        Calendar to = Calendar.getInstance();
+        to.set(2021, 1, 4);
+
+        List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(Arrays.asList("PDD"), to);
+        assertThat(pList, hasSize(0));
+    }
+
+    @Test
+    void givenFLL_PenetrateIsTrue() {
+        Calendar to = Calendar.getInstance();
+        to.set(2021, 1, 4);
+
+        List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(Arrays.asList("FLL"), to);
+        assertThat(pList, hasSize(0));
+    }
+
 }

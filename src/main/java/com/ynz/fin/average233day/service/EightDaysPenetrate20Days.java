@@ -89,12 +89,13 @@ public class EightDaysPenetrate20Days {
                 boolean isP = EightAveragePenetrateTwentyOneAverage
                         .of(tenDay8AverageRegressionFactors, tenDay21AverageRegressionFactors)
                         .penetrate();
-                if (isP) penetrateList.add(ticker);
+                if (isP) {
+                    penetrateList.add(ticker);
+                    rs.saveLine(" " + ticker + " ");
+                }
             } else {
                 continue;
             }
-
-            rs.saveLine(" " + ticker + " ");
         }
         return penetrateList;
     }

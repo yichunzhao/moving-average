@@ -1,5 +1,6 @@
 package com.ynz.fin.average233day.helpers.calculators;
 
+import com.ynz.fin.average233day.utils.NumberFormatter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import yahoofinance.histquotes.HistoricalQuote;
@@ -36,7 +37,7 @@ public class AverageTwentyOneDays implements AverageCalculator<HistoricalQuote, 
             Double average = quotes.subList(i, i + 21).stream()
                     .mapToDouble(q -> q.getClose().doubleValue()).average()
                     .orElseThrow(() -> new Exception("double average is not present"));
-            historicalQuoteDoubleMap.put(quotes.get(i), average);
+            historicalQuoteDoubleMap.put(quotes.get(i), NumberFormatter.of(average).round());
         }
         return historicalQuoteDoubleMap;
     }

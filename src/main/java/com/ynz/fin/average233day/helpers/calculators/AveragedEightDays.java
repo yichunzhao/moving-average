@@ -1,5 +1,6 @@
 package com.ynz.fin.average233day.helpers.calculators;
 
+import com.ynz.fin.average233day.utils.NumberFormatter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -40,7 +41,7 @@ public class AveragedEightDays implements AverageCalculator<HistoricalQuote, Dou
             Double average = quotes.subList(i, i + 8).stream()
                     .mapToDouble(q -> q.getClose().doubleValue()).average()
                     .orElseThrow(() -> new Exception("double average is not present"));
-            historicalQuoteDoubleMap.put(quotes.get(i), average);
+            historicalQuoteDoubleMap.put(quotes.get(i), NumberFormatter.of(average).round());
         }
         return historicalQuoteDoubleMap;
     }

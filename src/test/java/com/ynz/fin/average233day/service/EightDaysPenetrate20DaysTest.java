@@ -36,7 +36,6 @@ class EightDaysPenetrate20DaysTest {
         assertThat(pList, hasSize(0));
     }
 
-
     @Test
     void determinePatternByTickerAAWW() {
         Calendar to = Calendar.getInstance();
@@ -94,6 +93,56 @@ class EightDaysPenetrate20DaysTest {
     }
 
     @Test
+    void givenKOSS_PenetrateIsFalse() {
+        Calendar to = Calendar.getInstance();
+        to.set(2021, 1, 4);
+
+        List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(Arrays.asList("KOSS"), to);
+        assertThat(pList, hasSize(0));
+    }
+
+    @Test
+    void givenGRNVU_PenetrateIsFalse() {
+        Calendar to = Calendar.getInstance();
+        to.set(2021, 1, 4);
+
+        List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(Arrays.asList("GRNVU"), to);
+        assertThat(pList, hasSize(0));
+    }
+
+    @Test
+    void givenALLK_PenetrateIsTrue() {
+        Calendar to = Calendar.getInstance();
+        to.set(2021, 1, 6);
+
+        List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(Arrays.asList("ALLK"), to);
+        assertThat(pList, hasSize(0));
+    }
+
+    /**
+     * weak penetrate
+     */
+    @Test
+    void givenNVAX_PenetrateIsTrue() {
+        Calendar to = Calendar.getInstance();
+        to.set(2021, 1, 6);
+
+        List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(Arrays.asList("NVAX"), to);
+        assertThat(pList, hasSize(1));
+    }
+
+    @Test
+    void givenPList_ExploringPatterns() {
+        List<String> plist = Arrays.asList("ALLK", "ANGI", "AVXL", "CSGP", "GNPX", "HHR", "HYRE", "LACQ", "LANC", "NVAX", "OKTA", "SAVA", "THCB", "TWNK", "WDAY");
+
+        Calendar to = Calendar.getInstance();
+        to.set(2021, 1, 6);
+
+        List<String> results = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(plist, to);
+        assertThat(results.size(), is (greaterThan(9)));
+    }
+
+    @Test
     @Disabled
     void determinePenetratePatternBy233DayIncrementalTickers() {
         List<String> tickers = incrementalNasdaqStocks.load();
@@ -113,7 +162,7 @@ class EightDaysPenetrate20DaysTest {
     void givenBoth10Day8DayAnd21DayAverageBothPositive_FindOUt8Penetrate21() {
         List<String> tickers = ResultFolderTickerLoader.of("10Day8DayAvrAnd21DayAverBothPositive.txt").load();
         Calendar to = Calendar.getInstance();
-        to.set(2021, 1, 4);
+        to.set(2021, 1, 6);
 
         List<String> pList = eightDaysPenetrate20Days.findAllPenetratePatternsByTickers(tickers, to);
         log.info("penetrate");

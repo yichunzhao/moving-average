@@ -34,3 +34,5 @@ build/
 /.mvn/
 /results/penetratedTickers.txt
 /.mvn/
+/results/penetratedTickersUpdated.txt
+/results/10Day8DayAvrAnd21DayAverBothPositive.txt

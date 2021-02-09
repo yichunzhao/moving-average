@@ -1,6 +1,5 @@
 package com.ynz.fin.average233day.service;
 
-
 import com.ynz.fin.average233day.helpers.accessquotes.StockHistoricalQuoteLoader;
 import com.ynz.fin.average233day.helpers.calculators.AverageCalculatorContext;
 import com.ynz.fin.average233day.helpers.calculators.AverageTwentyOneDays;
@@ -10,6 +9,7 @@ import com.ynz.fin.average233day.helpers.factors.DayAverageTrendIndicator;
 import com.ynz.fin.average233day.helpers.factors.LinerRegressionDataFactors;
 import com.ynz.fin.average233day.utils.filestore.ResultFileStorage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import yahoofinance.histquotes.HistoricalQuote;
@@ -27,8 +27,9 @@ import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
-public class EightDaysPenetrate20Days implements LinePatterns {
-    @Value("${file.storage.filename}")
+@Slf4j
+public class Updated8AvgPenetrate21Avg implements LinePatterns {
+    @Value("${file.storage.filename1}")
     private String filename;
 
     @Value("${file.storage.resultDir}")
@@ -39,13 +40,6 @@ public class EightDaysPenetrate20Days implements LinePatterns {
     private final LinerRegressionDataFactors linerRegressionDataFactors;
     private final DayAverageTrendIndicator dayAverageTrendIndicator;
 
-    /**
-     * find all 10-day-8DayAverage penetrate 10-day-21DayAverage
-     *
-     * @param tickers List<String> target tickers.
-     * @param to      Calendar a reference date
-     * @return List<String> tickers showing the desired pattern
-     */
     @Override
     public List<String> findAllPenetratePatternsByTickers(List<String> tickers, Calendar to) {
         if (tickers == null || tickers.isEmpty()) throw new IllegalArgumentException("tickers is empty");
@@ -120,7 +114,6 @@ public class EightDaysPenetrate20Days implements LinePatterns {
             }
         }
         return penetrateList;
+
     }
-
-
 }

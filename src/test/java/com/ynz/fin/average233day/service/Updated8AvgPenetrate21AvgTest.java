@@ -36,6 +36,24 @@ class Updated8AvgPenetrate21AvgTest {
         assertThat(pList, hasSize(1));
     }
 
+    @Test
+    void givenALLKToFeb9_ExploringPenetrateIsTrueOrFalse() {
+        Calendar to = Calendar.getInstance();
+        to.set(2021, 1, 9);
+
+        List<String> pList = updated8AvgPenetrate21Avg.findAllPenetratePatternsByTickers(Arrays.asList("ALLK"), to);
+        assertThat(pList, hasSize(1));
+    }
+
+    @Test
+    void givenTSLAToFeb9_ExploringPenetrateIsTrueOrFalse() {
+        Calendar to = Calendar.getInstance();
+        to.set(2021, 1, 9);
+
+        List<String> pList = updated8AvgPenetrate21Avg.findAllPenetratePatternsByTickers(Arrays.asList("TSLA"), to);
+        assertThat(pList, hasSize(0));
+    }
+
     /**
      * weak penetrate
      */

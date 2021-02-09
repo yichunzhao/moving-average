@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import yahoofinance.histquotes.HistoricalQuote;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -76,10 +77,13 @@ public class Updated8AvgPenetrate21Avg implements LinePatterns {
             int penetratedIndex = feature.indexOf("1");
 
             List<Calendar> tenDays = eightDayAverage.keySet().stream().map(HistoricalQuote::getDate).collect(toList());
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            List<String> tenDayDates = tenDays.stream().map(c -> formatter.format(c.getTime()))
+                    .collect(toList());
 
             if (isPenetrated) {
                 penetrateList.add(ticker);
-                rs.saveLine(" ......... ticker " + ticker + " .............");
+                rs.saveLine(" ... ticker: " + ticker + " ref. date: " + to.getTime());
                 Date pTime = tenDays.get(penetratedIndex).getTime();
                 rs.saveLine("penetrating day: " + pTime);
 
@@ -90,6 +94,8 @@ public class Updated8AvgPenetrate21Avg implements LinePatterns {
                 rs.saveLine("21-day-average");
                 List<Double> valuesOf21DaysAvr = new ArrayList<>(twentyOneDayAverage.values());
                 rs.saveLine(valuesOf21DaysAvr.toString());
+
+                rs.saveLine(tenDayDates.toString());
             }
         }
 

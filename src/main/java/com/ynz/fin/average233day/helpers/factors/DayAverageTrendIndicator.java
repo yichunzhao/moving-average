@@ -1,13 +1,13 @@
 package com.ynz.fin.average233day.helpers.factors;
 
-
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-
 @Component("dayAverageTrendIndicator")
+@Scope("prototype")
 @NoArgsConstructor
 public class DayAverageTrendIndicator implements DataSetTrend<Double> {
 
@@ -22,10 +22,11 @@ public class DayAverageTrendIndicator implements DataSetTrend<Double> {
     public boolean isIncremental() {
         if (factors == null) throw new IllegalStateException(" factorMap is not given");
 
-        double rSquare = factors.get(LinerRegressionDataFactors.Factor.R_SQUARE);
-        if (rSquare < 0.2) return false;
+        double rs = factors.get(LinerRegressionDataFactors.Factor.R_SQUARE);
+        if (rs < 0.3) return false;
 
         double slop = factors.get(LinerRegressionDataFactors.Factor.SLOP);
+
         return slop > 0;
     }
 }

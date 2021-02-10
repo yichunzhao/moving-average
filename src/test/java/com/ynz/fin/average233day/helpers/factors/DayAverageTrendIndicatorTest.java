@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @Slf4j
 class DayAverageTrendIndicatorTest {
@@ -27,24 +26,42 @@ class DayAverageTrendIndicatorTest {
     private List<Double> dataList;
     private Map<LinerRegressionDataFactors.Factor, Double> factorDoubleMap;
 
-    private List<Double> dataListDec;
-    private Map<LinerRegressionDataFactors.Factor, Double> factorDoubleMapDec;
+    private List<Double> dataList1;
+    private Map<LinerRegressionDataFactors.Factor, Double> factorDoubleMap1;
+
+    private List<Double> dataList2;
+    private Map<LinerRegressionDataFactors.Factor, Double> factorDoubleMap2;
 
     @BeforeEach
     void setUp() {
-        dataList = Arrays.asList(1.23, 2.89, 3.45, 4.56);
+        //ticker: MRSN ref. date: Tue Feb 09 12:00:00 CET 2021;8-day MA
+        dataList = Arrays.asList(20.53, 20.24, 19.94, 19.61, 19.52, 19.64, 19.87, 20.11, 20.6, 21.28);
         regressionDataFactors.setDataList(dataList);
         factorDoubleMap = regressionDataFactors.calDataSetFactors();
 
-        dataListDec = Arrays.asList(599.56, 478.34, 345.67, 223.44);
-        regressionDataFactors.setDataList(dataListDec);
-        factorDoubleMapDec = regressionDataFactors.calDataSetFactors();
+        //ticker: ALLK ref. date: Sat Feb 06 12:00:00 CET 2021; 8-day MA
+        dataList1 = Arrays.asList(128.51, 129.2, 129.38, 129.12, 129.9, 130.66, 131.62, 132.37, 133.63, 135.66);
+        regressionDataFactors.setDataList(dataList1);
+        factorDoubleMap1 = regressionDataFactors.calDataSetFactors();
+
+        //ticker: ALLK ref. date: Sat Feb 06 12:00:00 CET 2021; 21-day MA
+        dataList2 = Arrays.asList(133.29, 132.26, 131.23, 129.99, 129.53, 129.25, 129.07, 129.29, 130.17, 131.06);
+        regressionDataFactors.setDataList(dataList2);
+        factorDoubleMap2 = regressionDataFactors.calDataSetFactors();
     }
 
     @Test
-    void isIncremental() {
+    void whenGivenDataListVaryAroundConstant_ItReturnsFalse() {
         log.info("indicating a data list trend ");
         trendIndicator.setFactorMap(factorDoubleMap);
+
+        assertFalse(trendIndicator.isIncremental());
+    }
+
+    @Test
+    void whenGivenDataListIncrease_ItReturnsTrue() {
+        log.info("indicating a data list trend Dec ");
+        trendIndicator.setFactorMap(factorDoubleMap1);
 
         assertTrue(trendIndicator.isIncremental());
     }
@@ -52,7 +69,7 @@ class DayAverageTrendIndicatorTest {
     @Test
     void whenGivenDataListDec_ItReturnsFalse() {
         log.info("indicating a data list trend Dec ");
-        trendIndicator.setFactorMap(factorDoubleMapDec);
+        trendIndicator.setFactorMap(factorDoubleMap2);
 
         assertFalse(trendIndicator.isIncremental());
     }
@@ -62,4 +79,5 @@ class DayAverageTrendIndicatorTest {
         log.info("when factorMap is not given ");
         assertThrows(IllegalStateException.class, () -> trendIndicator.isIncremental());
     }
+
 }

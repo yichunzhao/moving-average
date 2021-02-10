@@ -17,15 +17,14 @@ import java.util.TreeMap;
  */
 @Component("average233days")
 @Slf4j
-public class Averaged233Days implements AverageCalculator<HistoricalQuote, Double> {
+public class Average233Days implements AverageCalculator<HistoricalQuote, Double> {
     private final int movingDays = 233;
 
-    //cal. 20-day average
-    private int daySpan;
+    //cal. 20-day MA
+    private final int daySpan;
+    private final int minDataSetSize;
 
-    private int minDataSetSize;
-
-    public Averaged233Days(@Qualifier("20Days") int daySpan) {
+    public Average233Days(@Qualifier("20Days") int daySpan) {
         this.daySpan = daySpan;
         minDataSetSize = daySpan + (movingDays - 1);
     }

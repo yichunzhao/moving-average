@@ -2,8 +2,8 @@ package com.ynz.fin.average233day.helpers.factorpattern;
 
 import com.ynz.fin.average233day.helpers.accessquotes.StockHistoricalQuoteLoader;
 import com.ynz.fin.average233day.helpers.calculators.AverageCalculatorContext;
-import com.ynz.fin.average233day.helpers.calculators.AverageTwentyOneDays;
-import com.ynz.fin.average233day.helpers.calculators.AveragedEightDays;
+import com.ynz.fin.average233day.helpers.calculators.Average21Days;
+import com.ynz.fin.average233day.helpers.calculators.Average8Days;
 import com.ynz.fin.average233day.helpers.factorpattern.PenetrateIdentifier.ResultType;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -43,11 +43,11 @@ class PenetrateIdentifierTest {
         List<HistoricalQuote> validatedQuotes = quotes.stream().filter(q -> q.getClose() != null).collect(toList());
 
         //cal. 10-day-8DayAverage
-        Map<HistoricalQuote, Double> eightDayAverage = calculatorContext.execute(validatedQuotes, AveragedEightDays.class);
+        Map<HistoricalQuote, Double> eightDayAverage = calculatorContext.execute(validatedQuotes, Average8Days.class);
         assertNotNull(eightDayAverage);
 
         //cal. 10-day-21DayAverage
-        Map<HistoricalQuote, Double> twentyOneDayAverage = calculatorContext.execute(validatedQuotes, AverageTwentyOneDays.class);
+        Map<HistoricalQuote, Double> twentyOneDayAverage = calculatorContext.execute(validatedQuotes, Average21Days.class);
         assertNotNull(twentyOneDayAverage);
 
         Map<ResultType, String> results = PenetrateIdentifier.of(eightDayAverage, twentyOneDayAverage).penetrate();
@@ -66,11 +66,11 @@ class PenetrateIdentifierTest {
         List<HistoricalQuote> validatedQuotes = quotes.stream().filter(q -> q.getClose() != null).collect(toList());
 
         //cal. 10-day-8DayAverage
-        Map<HistoricalQuote, Double> eightDayAverage = calculatorContext.execute(validatedQuotes, AveragedEightDays.class);
+        Map<HistoricalQuote, Double> eightDayAverage = calculatorContext.execute(validatedQuotes, Average8Days.class);
         assertNotNull(eightDayAverage);
 
         //cal. 10-day-21DayAverage
-        Map<HistoricalQuote, Double> twentyOneDayAverage = calculatorContext.execute(validatedQuotes, AverageTwentyOneDays.class);
+        Map<HistoricalQuote, Double> twentyOneDayAverage = calculatorContext.execute(validatedQuotes, Average21Days.class);
         assertNotNull(twentyOneDayAverage);
 
         Map<ResultType, String> results = PenetrateIdentifier.of(eightDayAverage, twentyOneDayAverage).penetrate();
@@ -89,11 +89,11 @@ class PenetrateIdentifierTest {
         List<HistoricalQuote> validatedQuotes = quotes.stream().filter(q -> q.getClose() != null).collect(toList());
 
         //cal. 10-day-8DayAverage
-        Map<HistoricalQuote, Double> eightDayAverage = calculatorContext.execute(validatedQuotes, AveragedEightDays.class);
+        Map<HistoricalQuote, Double> eightDayAverage = calculatorContext.execute(validatedQuotes, Average8Days.class);
         assertNotNull(eightDayAverage);
 
         //cal. 10-day-21DayAverage
-        Map<HistoricalQuote, Double> twentyOneDayAverage = calculatorContext.execute(validatedQuotes, AverageTwentyOneDays.class);
+        Map<HistoricalQuote, Double> twentyOneDayAverage = calculatorContext.execute(validatedQuotes, Average21Days.class);
         assertNotNull(twentyOneDayAverage);
 
         Map<ResultType, String> results = PenetrateIdentifier.of(eightDayAverage, twentyOneDayAverage).penetrate();
@@ -112,11 +112,11 @@ class PenetrateIdentifierTest {
         List<HistoricalQuote> validatedQuotes = quotes.stream().filter(q -> q.getClose() != null).collect(toList());
 
         //cal. 10-day-8DayAverage
-        Map<HistoricalQuote, Double> eightDayAverage = calculatorContext.execute(validatedQuotes, AveragedEightDays.class);
+        Map<HistoricalQuote, Double> eightDayAverage = calculatorContext.execute(validatedQuotes, Average8Days.class);
         assertNotNull(eightDayAverage);
 
         //cal. 10-day-21DayAverage
-        Map<HistoricalQuote, Double> twentyOneDayAverage = calculatorContext.execute(validatedQuotes, AverageTwentyOneDays.class);
+        Map<HistoricalQuote, Double> twentyOneDayAverage = calculatorContext.execute(validatedQuotes, Average21Days.class);
         assertNotNull(twentyOneDayAverage);
 
         Map<ResultType, String> results = PenetrateIdentifier.of(eightDayAverage, twentyOneDayAverage).penetrate();

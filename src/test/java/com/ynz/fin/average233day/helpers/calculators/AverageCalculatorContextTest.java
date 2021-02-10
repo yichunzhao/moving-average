@@ -39,7 +39,7 @@ class AverageCalculatorContextTest {
 
     @Test
     void testAverage8daysCalculator() {
-        Map<HistoricalQuote, Double> result = calculatorContext.execute(quoteList, AveragedEightDays.class);
+        Map<HistoricalQuote, Double> result = calculatorContext.execute(quoteList, Average8Days.class);
         assertAll(
                 () -> assertThat(result, is(notNullValue())),
                 () -> assertThat(result.size(), is(10))
@@ -48,7 +48,7 @@ class AverageCalculatorContextTest {
 
     @Test
     void testAverage21daysCalculator() {
-        Map<HistoricalQuote, Double> result = calculatorContext.execute(quoteList, AverageTwentyOneDays.class);
+        Map<HistoricalQuote, Double> result = calculatorContext.execute(quoteList, Average21Days.class);
         assertAll(
                 () -> assertThat(result, is(notNullValue())),
                 () -> assertThat(result.size(), is(10))
@@ -57,7 +57,7 @@ class AverageCalculatorContextTest {
 
     @Test
     void testAverage233daysCalculator() {
-        Map<HistoricalQuote, Double> result = calculatorContext.execute(quoteList, Averaged233Days.class);
+        Map<HistoricalQuote, Double> result = calculatorContext.execute(quoteList, Average233Days.class);
         assertAll(
                 () -> assertThat(result, is(notNullValue())),
                 () -> assertThat(result.size(), is(20))

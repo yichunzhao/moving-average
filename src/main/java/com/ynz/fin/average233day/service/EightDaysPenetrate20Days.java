@@ -3,8 +3,8 @@ package com.ynz.fin.average233day.service;
 
 import com.ynz.fin.average233day.helpers.accessquotes.StockHistoricalQuoteLoader;
 import com.ynz.fin.average233day.helpers.calculators.AverageCalculatorContext;
-import com.ynz.fin.average233day.helpers.calculators.AverageTwentyOneDays;
-import com.ynz.fin.average233day.helpers.calculators.AveragedEightDays;
+import com.ynz.fin.average233day.helpers.calculators.Average21Days;
+import com.ynz.fin.average233day.helpers.calculators.Average8Days;
 import com.ynz.fin.average233day.helpers.factorpattern.EightAveragePenetrateTwentyOneAverage;
 import com.ynz.fin.average233day.helpers.factors.DayAverageTrendIndicator;
 import com.ynz.fin.average233day.helpers.factors.LinerRegressionDataFactors;
@@ -66,11 +66,11 @@ public class EightDaysPenetrate20Days implements LinePatterns {
             List<HistoricalQuote> validatedQuotes = quotes.stream().filter(q -> q.getClose() != null).collect(toList());
 
             //cal. 10-day-8DayAverage
-            Map<HistoricalQuote, Double> tenDay8DayAverage = calculatorContext.execute(validatedQuotes, AveragedEightDays.class);
+            Map<HistoricalQuote, Double> tenDay8DayAverage = calculatorContext.execute(validatedQuotes, Average8Days.class);
             if (tenDay8DayAverage == null) continue;
 
             //cal. 10-day-21DayAverage
-            Map<HistoricalQuote, Double> tenDay21DayAverage = calculatorContext.execute(validatedQuotes, AverageTwentyOneDays.class);
+            Map<HistoricalQuote, Double> tenDay21DayAverage = calculatorContext.execute(validatedQuotes, Average21Days.class);
             if (tenDay21DayAverage == null) continue;
 
             //cal. liner regression factors

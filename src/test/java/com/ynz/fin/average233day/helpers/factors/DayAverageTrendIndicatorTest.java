@@ -53,31 +53,25 @@ class DayAverageTrendIndicatorTest {
     @Test
     void whenGivenDataListVaryAroundConstant_ItReturnsFalse() {
         log.info("indicating a data list trend ");
-        trendIndicator.setFactorMap(factorDoubleMap);
-
-        assertFalse(trendIndicator.isIncremental());
+        assertFalse(trendIndicator.setFactorMap(factorDoubleMap).isIncremental());
     }
 
     @Test
     void whenGivenDataListIncrease_ItReturnsTrue() {
         log.info("indicating a data list trend Dec ");
-        trendIndicator.setFactorMap(factorDoubleMap1);
-
-        assertTrue(trendIndicator.isIncremental());
+        assertTrue(trendIndicator.setFactorMap(factorDoubleMap1).isIncremental());
     }
 
     @Test
     void whenGivenDataListDec_ItReturnsFalse() {
         log.info("indicating a data list trend Dec ");
-        trendIndicator.setFactorMap(factorDoubleMap2);
-
-        assertFalse(trendIndicator.isIncremental());
+        assertFalse(trendIndicator.setFactorMap(factorDoubleMap2).isIncremental());
     }
 
     @Test
     void whenFactorMapIsNotGiven_ThrowIllegalStateException() {
         log.info("when factorMap is not given ");
-        assertThrows(IllegalStateException.class, () -> trendIndicator.isIncremental());
+        assertThrows(IllegalStateException.class, () -> trendIndicator.setFactorMap(null).isIncremental());
     }
 
 }

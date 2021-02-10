@@ -10,5 +10,5 @@ import java.util.Map;
 public interface DataSetTrend<T extends Number> {
     boolean isIncremental();
 
-    void setFactorMap(Map<LinerRegressionDataFactors.Factor, T> factorMap);
+    DataSetTrend<T> setFactorMap(Map<LinerRegressionDataFactors.Factor, T> factorMap);
 }

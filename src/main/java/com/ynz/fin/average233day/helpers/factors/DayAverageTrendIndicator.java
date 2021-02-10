@@ -14,8 +14,9 @@ public class DayAverageTrendIndicator implements DataSetTrend<Double> {
     private Map<LinerRegressionDataFactors.Factor, Double> factors;
 
     @Override
-    public void setFactorMap(Map<LinerRegressionDataFactors.Factor, Double> factorMap) {
+    public DayAverageTrendIndicator setFactorMap(Map<LinerRegressionDataFactors.Factor, Double> factorMap) {
         factors = factorMap;
+        return this;
     }
 
     @Override

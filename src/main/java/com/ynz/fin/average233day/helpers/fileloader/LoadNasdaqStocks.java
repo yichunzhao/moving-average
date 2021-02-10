@@ -40,35 +40,14 @@ public class LoadNasdaqStocks implements FileLoader<NasdaqStock> {
             if (fields.length != 8) continue;
 
             NasdaqStock stock = new NasdaqStock();
-            for (int i = 0; i < fields.length; i++) {
-
-                switch (i) {
-                    case 0:
-                        stock.setSymbol(fields[0]);
-                        break;
-                    case 1:
-                        stock.setSecurityName(fields[1]);
-                        break;
-                    case 2:
-                        stock.setMarketCategory(fields[2]);
-                        break;
-                    case 3:
-                        stock.setTestIssue(fields[3]);
-                        break;
-                    case 4:
-                        stock.setFinancialStatus(fields[4]);
-                        break;
-                    case 5:
-                        stock.setRoundLotSize(fields[5]);
-                        break;
-                    case 6:
-                        stock.setETF(fields[6]);
-                        break;
-                    case 7:
-                        stock.setNextShares(fields[7]);
-                }
-            }
-
+            stock.setSymbol(fields[0]);
+            stock.setSecurityName(fields[1]);
+            stock.setMarketCategory(fields[2]);
+            stock.setTestIssue(fields[3]);
+            stock.setFinancialStatus(fields[4]);
+            stock.setRoundLotSize(fields[5]);
+            stock.setETF(fields[6]);
+            stock.setNextShares(fields[7]);
             stocks.add(stock);
         }
 
@@ -80,6 +59,5 @@ public class LoadNasdaqStocks implements FileLoader<NasdaqStock> {
         return stocks.stream()
                 .collect(Collectors.groupingBy(nasdaqStock -> nasdaqStock.getSymbol().charAt(0), Collectors.toCollection(TreeSet::new)));
     }
-
 
 }

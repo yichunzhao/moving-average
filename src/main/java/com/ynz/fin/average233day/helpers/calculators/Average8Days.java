@@ -9,7 +9,7 @@ import yahoofinance.histquotes.HistoricalQuote;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
@@ -30,10 +30,10 @@ public class Average8Days implements AverageCalculator<HistoricalQuote, Double> 
     }
 
     @Override
-    public Map<HistoricalQuote, Double> compute(List<HistoricalQuote> quotes) throws Exception {
+    public SortedMap<HistoricalQuote, Double> compute(List<HistoricalQuote> quotes) throws Exception {
         if (quotes.size() < minDataSetSize) throw new Exception("input data size is not enough");
 
-        Map<HistoricalQuote, Double> historicalQuoteDoubleMap = new TreeMap<>(Comparator.comparing(HistoricalQuote::getDate));
+        SortedMap<HistoricalQuote, Double> historicalQuoteDoubleMap = new TreeMap<>(Comparator.comparing(HistoricalQuote::getDate));
 
         //reverse the list; now the latest are stored at the most left side.
         Collections.reverse(quotes);

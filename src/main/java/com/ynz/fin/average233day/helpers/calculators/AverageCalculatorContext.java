@@ -7,7 +7,7 @@ import yahoofinance.histquotes.HistoricalQuote;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.SortedMap;
 
 @Component("averageContext")
 @RequiredArgsConstructor
@@ -18,7 +18,7 @@ public class AverageCalculatorContext {
     private final Average21Days twentyOneDays;
     private final Average233Days averaged233Days;
 
-    public <T extends AverageCalculator<HistoricalQuote, Double>> Map<HistoricalQuote, Double> execute(List<HistoricalQuote> quotes, Class<T> strategy) {
+    public <T extends AverageCalculator<HistoricalQuote, Double>> SortedMap<HistoricalQuote, Double> execute(List<HistoricalQuote> quotes, Class<T> strategy) {
         AverageCalculator<HistoricalQuote, Double> averageCalculator;
 
         if (strategy.equals(Average8Days.class)) averageCalculator = eightDays;
@@ -28,7 +28,7 @@ public class AverageCalculatorContext {
 
         List<HistoricalQuote> quotesClone = new ArrayList<>(quotes);
 
-        Map<HistoricalQuote, Double> historicalQuoteDoubleMap;
+        SortedMap<HistoricalQuote, Double> historicalQuoteDoubleMap;
 
         try {
             historicalQuoteDoubleMap = averageCalculator.compute(quotesClone);

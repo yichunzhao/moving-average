@@ -1,7 +1,7 @@
 package com.ynz.fin.average233day.helpers.calculators;
 
 import java.util.List;
-import java.util.Map;
+import java.util.SortedMap;
 
 public interface AverageCalculator<T, R> {
     /**
@@ -11,5 +11,5 @@ public interface AverageCalculator<T, R> {
      * @return List<Double> average values
      */
 
-    Map<T, R> compute(List<T> quotes) throws Exception;
+    SortedMap<T, R> compute(List<T> quotes) throws Exception;
 }

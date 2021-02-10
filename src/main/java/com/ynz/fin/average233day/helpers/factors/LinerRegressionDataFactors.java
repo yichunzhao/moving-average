@@ -3,15 +3,21 @@ package com.ynz.fin.average233day.helpers.factors;
 import com.ynz.fin.average233day.utils.NumberFormatter;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.ynz.fin.average233day.helpers.factors.LinerRegressionDataFactors.*;
+
 @Component("linerRegressionFactor")
+@Scope("prototype")
 @RequiredArgsConstructor(staticName = "of")
-public class LinerRegressionDataFactors implements DataSetFactors {
+public class LinerRegressionDataFactors implements DataSetFactors<Factor, Double> {
     public enum Factor {
         SLOP, INTERCEPT, R_SQUARE, R
     }
@@ -20,13 +26,14 @@ public class LinerRegressionDataFactors implements DataSetFactors {
 
     private List<Double> dataList;
 
+
     @Override
-    public void setDataList(List dataList) {
-        this.dataList = dataList;
+    public void setDataList(Collection<Double> dataList) {
+        this.dataList = new ArrayList<>(dataList);
     }
 
     @Override
-    public List getDataList() {
+    public List<Double> getDataList() {
         return this.dataList;
     }
 

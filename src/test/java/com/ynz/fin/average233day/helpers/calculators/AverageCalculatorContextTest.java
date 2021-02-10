@@ -17,7 +17,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @SpringBootTest
@@ -34,7 +33,7 @@ class AverageCalculatorContextTest {
     @BeforeEach
     void setUp() {
         Calendar to = new GregorianCalendar(2021, 0, 29);
-        quoteList = stockLoader.loadPastMonthQuotes("tdy", to, 2);
+        quoteList = stockLoader.loadPastMonthQuotes("tdy", to, 13);
         quoteList.parallelStream().filter(quote -> quote.getClose() != null).collect(toList());
     }
 
@@ -57,8 +56,12 @@ class AverageCalculatorContextTest {
     }
 
     @Test
-    void whenStrategySelectionIsNotExisted_ThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> calculatorContext.execute(quoteList, Integer.class));
+    void testAverage233daysCalculator() {
+        Map<HistoricalQuote, Double> result = calculatorContext.execute(quoteList, Averaged233Days.class);
+        assertAll(
+                () -> assertThat(result, is(notNullValue())),
+                () -> assertThat(result.size(), is(20))
+        );
     }
 
 }

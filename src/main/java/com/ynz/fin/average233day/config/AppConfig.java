@@ -22,6 +22,11 @@ public class AppConfig {
         return 10;
     }
 
+    @Bean(name = "20Days")
+    public Integer twentyDaySpan() {
+        return 20;
+    }
+
     @Bean("simpleRegression")
     public SimpleRegression getSimpleRegression() {
         return new SimpleRegression();

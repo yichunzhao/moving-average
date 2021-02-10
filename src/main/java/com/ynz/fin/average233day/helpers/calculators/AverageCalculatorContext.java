@@ -16,14 +16,16 @@ import java.util.Map;
 @Slf4j
 public class AverageCalculatorContext {
 
-    private AverageCalculator averageCalculator;
-
     private final AveragedEightDays eightDays;
     private final AverageTwentyOneDays twentyOneDays;
+    private final Averaged233Days averaged233Days;
 
-    public <T> Map<HistoricalQuote, Double> execute(List<HistoricalQuote> quotes, Class<T> strategy) {
+    public <T extends AverageCalculator<HistoricalQuote, Double>> Map<HistoricalQuote, Double> execute(List<HistoricalQuote> quotes, Class<T> strategy) {
+        AverageCalculator<HistoricalQuote, Double> averageCalculator;
+
         if (strategy.equals(AveragedEightDays.class)) averageCalculator = eightDays;
         else if (strategy.equals(AverageTwentyOneDays.class)) averageCalculator = twentyOneDays;
+        else if (strategy.equals(Averaged233Days.class)) averageCalculator = averaged233Days;
         else throw new IllegalArgumentException("strategy is not existed");
 
         List<HistoricalQuote> quotesClone = new ArrayList<>(quotes);

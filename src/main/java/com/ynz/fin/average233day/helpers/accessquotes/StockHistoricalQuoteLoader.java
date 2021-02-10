@@ -47,7 +47,7 @@ public class StockHistoricalQuoteLoader implements StockLoader<HistoricalQuote> 
             if (quotes == null || quotes.isEmpty()) return null;
 
         } catch (IOException e) {
-            log.error("loading ticker: " + ticker + "averagedDays loading historical quotes", e);
+            log.error("loading ticker: " + ticker + " from Yahoo Api", e);
             return null;
         }
         return quotes;

@@ -94,6 +94,19 @@ class Updated8AvgPenetrate21AvgTest {
 
     @Test
     @Disabled
+    void given233IncrementalTickersOnFeb9th_ExploringPenetrating() {
+        List<String> tickers = incrementalNasdaqStocks.load();
+        Calendar to = Calendar.getInstance();
+        to.set(2021, 1, 9);
+
+        //tickers.stream().skip(1000).collect(toList())
+        List<String> pList = updated8AvgPenetrate21Avg.findAllPenetratePatternsByTickers(tickers, to);
+
+        assertThat(pList.size(), is(greaterThan(1)));
+    }
+
+    @Test
+    @Disabled
     void givenBoth10Day8DayAnd21DayAverageBothPositive_FindOUt8Penetrate21() {
         List<String> tickers = ResultFolderTickerLoader.of("10Day8DayAvrAnd21DayAverBothPositive.txt").load();
         Calendar to = Calendar.getInstance();

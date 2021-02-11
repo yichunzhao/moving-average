@@ -12,11 +12,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.ynz.fin.average233day.helpers.factors.LinerRegressionDataFactors.*;
+import static com.ynz.fin.average233day.helpers.factors.LinerRegressionDataFactors.Factor;
 
 @Component("linerRegressionFactor")
 @Scope("prototype")
-@RequiredArgsConstructor(staticName = "of")
+@RequiredArgsConstructor
 public class LinerRegressionDataFactors implements DataSetFactors<Factor, Double> {
     public enum Factor {
         SLOP, INTERCEPT, R_SQUARE, R
@@ -26,10 +26,10 @@ public class LinerRegressionDataFactors implements DataSetFactors<Factor, Double
 
     private List<Double> dataList;
 
-
     @Override
-    public void setDataList(Collection<Double> dataList) {
+    public DataSetFactors<Factor, Double> setDataList(Collection<Double> dataList) {
         this.dataList = new ArrayList<>(dataList);
+        return this;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class LinerRegressionDataFactors implements DataSetFactors<Factor, Double
 
     @Override
     public Map<Factor, Double> calDataSetFactors() {
-        if (dataList == null) throw new IllegalStateException("dataList is not given");
+        if (dataList == null || dataList.isEmpty()) throw new IllegalStateException("dataList is not given");
         if (!dataList.stream().noneMatch(aDouble -> aDouble == null))
             throw new IllegalArgumentException(" dataList contains null value... ");
 

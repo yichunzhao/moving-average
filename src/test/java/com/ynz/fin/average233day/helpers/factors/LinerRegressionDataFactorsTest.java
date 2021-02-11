@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import yahoofinance.histquotes.HistoricalQuote;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -86,13 +85,13 @@ class LinerRegressionDataFactorsTest {
         to.set(2021, 1, 9);
 
         List<HistoricalQuote> quotes = stockLoader.loadPastMonthQuotes("OPINI", to, 13);
+        assertNotNull(quotes);
+
         Map<HistoricalQuote, Double> historicalQuoteDoubleMap = calculatorContext.execute(quotes, Average233Days.class);
         assertNotNull(historicalQuoteDoubleMap);
 
-        List<Double> averages = new ArrayList<>(historicalQuoteDoubleMap.values());
+        Map<Factor, Double> factorDoubleMap = factors.setDataList(historicalQuoteDoubleMap.values()).calDataSetFactors();
 
-        factors.setDataList(averages);
-        Map<Factor, Double> factorDoubleMap = factors.calDataSetFactors();
         assertAll(
                 () -> assertNotNull(factorDoubleMap),
                 () -> assertThat(factorDoubleMap.get(Factor.SLOP), is(lessThanOrEqualTo(0D)))
@@ -105,13 +104,12 @@ class LinerRegressionDataFactorsTest {
         to.set(2021, 1, 9);
 
         List<HistoricalQuote> quotes = stockLoader.loadPastMonthQuotes("TDY", to, 13);
+        assertNotNull(quotes);
+
         Map<HistoricalQuote, Double> historicalQuoteDoubleMap = calculatorContext.execute(quotes, Average233Days.class);
         assertNotNull(historicalQuoteDoubleMap);
 
-        List<Double> averages = new ArrayList<>(historicalQuoteDoubleMap.values());
-
-        factors.setDataList(averages);
-        Map<Factor, Double> factorDoubleMap = factors.calDataSetFactors();
+        Map<Factor, Double> factorDoubleMap = factors.setDataList(historicalQuoteDoubleMap.values()).calDataSetFactors();
         assertAll(
                 () -> assertNotNull(factorDoubleMap),
                 () -> assertThat(factorDoubleMap.get(Factor.SLOP), is(greaterThan(0D)))
@@ -124,13 +122,13 @@ class LinerRegressionDataFactorsTest {
         to.set(2021, 1, 9);
 
         List<HistoricalQuote> quotes = stockLoader.loadPastMonthQuotes("TSLA", to, 13);
+        assertNotNull(quotes);
+
         Map<HistoricalQuote, Double> historicalQuoteDoubleMap = calculatorContext.execute(quotes, Average233Days.class);
         assertNotNull(historicalQuoteDoubleMap);
 
-        List<Double> averages = new ArrayList<>(historicalQuoteDoubleMap.values());
+        Map<Factor, Double> factorDoubleMap = factors.setDataList(historicalQuoteDoubleMap.values()).calDataSetFactors();
 
-        factors.setDataList(averages);
-        Map<Factor, Double> factorDoubleMap = factors.calDataSetFactors();
         assertAll(
                 () -> assertNotNull(factorDoubleMap),
                 () -> assertThat(factorDoubleMap.get(Factor.SLOP), is(greaterThan(0D)))

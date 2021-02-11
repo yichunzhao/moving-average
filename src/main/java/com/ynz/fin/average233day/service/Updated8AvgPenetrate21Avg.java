@@ -1,9 +1,9 @@
 package com.ynz.fin.average233day.service;
 
 import com.ynz.fin.average233day.helpers.accessquotes.StockHistoricalQuoteLoader;
-import com.ynz.fin.average233day.helpers.calculators.AverageCalculatorContext;
 import com.ynz.fin.average233day.helpers.calculators.Average21Days;
 import com.ynz.fin.average233day.helpers.calculators.Average8Days;
+import com.ynz.fin.average233day.helpers.calculators.AverageCalculatorContext;
 import com.ynz.fin.average233day.utils.filestore.ResultFileStorage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,13 +56,19 @@ public class Updated8AvgPenetrate21Avg implements LinePatterns {
             //filter out null value
             List<HistoricalQuote> validatedQuotes = quotes.stream().filter(q -> q.getClose() != null).collect(toList());
 
-            //cal. 10-day-8DayAverage
-            Map<HistoricalQuote, Double> eightDayAverage = calculatorContext.execute(validatedQuotes, Average8Days.class);
-            if (eightDayAverage == null) continue;
+            Map<HistoricalQuote, Double> eightDayAverage;
+            Map<HistoricalQuote, Double> twentyOneDayAverage;
 
-            //cal. 10-day-21DayAverage
-            Map<HistoricalQuote, Double> twentyOneDayAverage = calculatorContext.execute(validatedQuotes, Average21Days.class);
-            if (twentyOneDayAverage == null) continue;
+            try {
+                //cal. 10-day-8DayAverage
+                eightDayAverage = calculatorContext.execute(validatedQuotes, Average8Days.class);
+
+                //cal. 10-day-21DayAverage
+                twentyOneDayAverage = calculatorContext.execute(validatedQuotes, Average21Days.class);
+            } catch (Exception e) {
+                log.warn("invoking calculatorContext", e);
+                continue;
+            }
 
             Map<ResultType, String> results;
             try {

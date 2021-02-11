@@ -2,14 +2,15 @@ package com.ynz.fin.average233day.service;
 
 
 import com.ynz.fin.average233day.helpers.accessquotes.StockHistoricalQuoteLoader;
-import com.ynz.fin.average233day.helpers.calculators.AverageCalculatorContext;
 import com.ynz.fin.average233day.helpers.calculators.Average21Days;
 import com.ynz.fin.average233day.helpers.calculators.Average8Days;
+import com.ynz.fin.average233day.helpers.calculators.AverageCalculatorContext;
 import com.ynz.fin.average233day.helpers.factorpattern.EightAveragePenetrateTwentyOneAverage;
 import com.ynz.fin.average233day.helpers.factors.DayAverageTrendIndicator;
 import com.ynz.fin.average233day.helpers.factors.LinerRegressionDataFactors;
 import com.ynz.fin.average233day.utils.filestore.ResultFileStorage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import yahoofinance.histquotes.HistoricalQuote;
@@ -27,6 +28,7 @@ import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class EightDaysPenetrate20Days implements LinePatterns {
     @Value("${file.storage.filename}")
     private String filename;
@@ -65,21 +67,25 @@ public class EightDaysPenetrate20Days implements LinePatterns {
             //filter out null value
             List<HistoricalQuote> validatedQuotes = quotes.stream().filter(q -> q.getClose() != null).collect(toList());
 
-            //cal. 10-day-8DayAverage
-            Map<HistoricalQuote, Double> tenDay8DayAverage = calculatorContext.execute(validatedQuotes, Average8Days.class);
-            if (tenDay8DayAverage == null) continue;
+            Map<HistoricalQuote, Double> tenDay8DayAverage;
+            Map<HistoricalQuote, Double> tenDay21DayAverage;
 
-            //cal. 10-day-21DayAverage
-            Map<HistoricalQuote, Double> tenDay21DayAverage = calculatorContext.execute(validatedQuotes, Average21Days.class);
-            if (tenDay21DayAverage == null) continue;
+            try {
+                //cal. 10-day-8DayAverage
+                tenDay8DayAverage = calculatorContext.execute(validatedQuotes, Average8Days.class);
+
+                //cal. 10-day-21DayAverage
+                tenDay21DayAverage = calculatorContext.execute(validatedQuotes, Average21Days.class);
+            } catch (Exception e) {
+                log.warn("invoking calculatorContext", e);
+                continue;
+            }
 
             //cal. liner regression factors
-            linerRegressionDataFactors.setDataList(new ArrayList(tenDay8DayAverage.values()));
-            Map<LinerRegressionDataFactors.Factor, Double> ten8AverageRegressionFactors = linerRegressionDataFactors.calDataSetFactors();
+            Map<LinerRegressionDataFactors.Factor, Double> ten8AverageRegressionFactors = linerRegressionDataFactors.setDataList(tenDay8DayAverage.values()).calDataSetFactors();
 
             //cal. liner regression factors
-            linerRegressionDataFactors.setDataList(new ArrayList(tenDay21DayAverage.values()));
-            Map<LinerRegressionDataFactors.Factor, Double> tenDay21AverageRegressionFactors = linerRegressionDataFactors.calDataSetFactors();
+            Map<LinerRegressionDataFactors.Factor, Double> tenDay21AverageRegressionFactors = linerRegressionDataFactors.setDataList(tenDay21DayAverage.values()).calDataSetFactors();
 
             //data set trend
             dayAverageTrendIndicator.setFactorMap(ten8AverageRegressionFactors);
@@ -121,6 +127,5 @@ public class EightDaysPenetrate20Days implements LinePatterns {
         }
         return penetrateList;
     }
-
 
 }

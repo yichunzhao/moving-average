@@ -18,13 +18,13 @@ public class AverageCalculatorContext {
     private final Average21Days twentyOneDays;
     private final Average233Days averaged233Days;
 
-    public <T extends AverageCalculator<HistoricalQuote, Double>> SortedMap<HistoricalQuote, Double> execute(List<HistoricalQuote> quotes, Class<T> strategy) {
+    public <T extends AverageCalculator<HistoricalQuote, Double>> SortedMap<HistoricalQuote, Double> execute(List<HistoricalQuote> quotes, Class<T> strategy) throws Exception {
         AverageCalculator<HistoricalQuote, Double> averageCalculator;
 
         if (strategy.equals(Average8Days.class)) averageCalculator = eightDays;
         else if (strategy.equals(Average21Days.class)) averageCalculator = twentyOneDays;
         else if (strategy.equals(Average233Days.class)) averageCalculator = averaged233Days;
-        else throw new IllegalArgumentException("strategy is not existed");
+        else throw new Exception("strategy is not existed");
 
         List<HistoricalQuote> quotesClone = new ArrayList<>(quotes);
 
@@ -34,7 +34,7 @@ public class AverageCalculatorContext {
             historicalQuoteDoubleMap = averageCalculator.compute(quotesClone);
         } catch (Exception e) {
             log.warn("average calculation context: ", e);
-            return null;
+            throw e;
         }
 
         return historicalQuoteDoubleMap;

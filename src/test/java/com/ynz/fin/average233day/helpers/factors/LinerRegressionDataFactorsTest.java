@@ -80,7 +80,7 @@ class LinerRegressionDataFactorsTest {
     }
 
     @Test
-    void givenTickerOPINI233DayMA_ItReturnsNegativeSlop() {
+    void givenTickerOPINI233DayMA_ItReturnsNegativeSlop() throws Exception {
         Calendar to = Calendar.getInstance();
         to.set(2021, 1, 9);
 
@@ -99,7 +99,7 @@ class LinerRegressionDataFactorsTest {
     }
 
     @Test
-    void givenTickerTDY233DayMA_ItReturnsPositiveSlop() {
+    void givenTickerTDY233DayMA_ItReturnsPositiveSlop() throws Exception {
         Calendar to = Calendar.getInstance();
         to.set(2021, 1, 9);
 
@@ -117,7 +117,7 @@ class LinerRegressionDataFactorsTest {
     }
 
     @Test
-    void givenTickerTSLA233DayMA_ItReturnsPositiveSlop() {
+    void givenTickerTSLA233DayMA_ItReturnsPositiveSlop() throws Exception {
         Calendar to = Calendar.getInstance();
         to.set(2021, 1, 9);
 

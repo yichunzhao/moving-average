@@ -36,3 +36,4 @@ build/
 /.mvn/
 /results/penetratedTickersUpdated.txt
 /results/10Day8DayAvrAnd21DayAverBothPositive.txt
+/results/allTickersPriceLessThan5.txt

@@ -28,16 +28,7 @@ public class AverageCalculatorContext {
 
         List<HistoricalQuote> quotesClone = new ArrayList<>(quotes);
 
-        SortedMap<HistoricalQuote, Double> historicalQuoteDoubleMap;
-
-        try {
-            historicalQuoteDoubleMap = averageCalculator.compute(quotesClone);
-        } catch (Exception e) {
-            log.warn("average calculation context: ", e);
-            throw e;
-        }
-
-        return historicalQuoteDoubleMap;
+        return averageCalculator.compute(quotesClone);
     }
 
 }

@@ -47,4 +47,5 @@ public class Average233Days implements AverageCalculator<HistoricalQuote, Double
         }
         return historicalQuoteDoubleMap;
     }
+
 }

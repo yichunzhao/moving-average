@@ -28,7 +28,7 @@ class AllNasStocksHandlerTest {
     private LoadNasdaqStocks loadNasdaqStocks;
 
     @Autowired
-    private AllNasStocksHandler stocksHandler;
+    private StocksHandler stocksHandler;
 
     @Test
     @Disabled
@@ -36,7 +36,7 @@ class AllNasStocksHandlerTest {
         List<String> tickers = loadNasdaqStocks.load().stream().map(NasdaqStock::getSymbol).collect(toList());
         Calendar to = Calendar.getInstance();
         to.set(2021, 1, 6);
-        stocksHandler.findManyTickers(tickers, to);
+        stocksHandler.findMA8PMA21Tickers(tickers, to);
     }
 
     @Test
@@ -46,7 +46,7 @@ class AllNasStocksHandlerTest {
         Calendar to = Calendar.getInstance();
         to.set(2021, 1, 6);
 
-        Map<String, Map<ResultType, String>> results = stocksHandler.findManyTickers(plist, to);
+        Map<String, Map<ResultType, String>> results = stocksHandler.findMA8PMA21Tickers(plist, to);
         log.info("test results table: ", results.toString());
 
         assertThat(results.size(), is(greaterThan(0)));
@@ -59,7 +59,7 @@ class AllNasStocksHandlerTest {
         Calendar to = Calendar.getInstance();
         to.set(2021, 1, 6);
 
-        Map<String, Map<ResultType, String>> results = stocksHandler.findManyTickers(plist, to);
+        Map<String, Map<ResultType, String>> results = stocksHandler.findMA8PMA21Tickers(plist, to);
 
         assertAll(
                 () -> assertThat(results.get("ANGI").size(), is(2)),

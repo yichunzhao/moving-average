@@ -3,7 +3,6 @@ package com.ynz.fin.average233day.service;
 import com.ynz.fin.average233day.helpers.accessquotes.StockHistoricalQuoteLoader;
 import com.ynz.fin.average233day.helpers.factorpattern.PenetrateIdentifier.ResultType;
 import com.ynz.fin.average233day.helpers.factorpattern.SoundPenetrateIdentifier;
-import com.ynz.fin.average233day.helpers.fileloader.LoadNasdaqStocks;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,16 +16,12 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class AllNasStocksHandler {
+public class StocksHandler {
 
     private final SoundPenetrateIdentifier identifier;
     private final StockHistoricalQuoteLoader quoteLoader;
 
-
-    /**
-     * find through tickers that ma8 penetrate ma21
-     */
-    public Map<String, Map<ResultType, String>> findManyTickers(List<String> tickers, Calendar to) {
+    public Map<String, Map<ResultType, String>> findMA8PMA21Tickers(List<String> tickers, Calendar to) {
         Map<String, Map<ResultType, String>> tickerResultMap = new LinkedHashMap<>();
 
         for (String ticker : tickers) {
@@ -37,7 +32,7 @@ public class AllNasStocksHandler {
             try {
                 tickerResultMap.put(ticker, identifier.handleSingle(quotes));
             } catch (Exception e) {
-                log.warn("find ma8 penetrating ma21 patterns through a list of tickers ", e);
+                log.warn("find MA8 penetrate MA21 through many tickers ", e);
                 continue;
             }
         }
